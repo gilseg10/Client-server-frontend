@@ -1,58 +1,112 @@
-.main_box {
-    padding-top: 110px;
-    width: 500px;
-    height: 700px;
-    margin: 0 auto;
-    /*border: 2px solid black;*/
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;
-    flex-direction: column;
-    border-radius: 30px;
+@media (min-width: 1025px){
+    .main_box {
+        width: 500px;
+        height: 780px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+    }
+
+    .section:first-child {
+        border-radius: 30px 30px 0 0;
+        background-color: rgba(127, 255, 212,0.5);
+    }
+    .section:last-child {
+        border-radius:  0 0 30px 30px;
+        background-color: rgba(102, 51, 153,0.5);
+    }
 }
 
+
+@media (min-width: 1px) and (max-width: 1024px) {
+    .main_box {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        backdrop-filter: blur(10px);
+    }
+
+    .section:first-child {
+        padding-top: 60px;
+        background-color: rgba(127, 255, 212,0.5);
+    }
+    .section:last-child {
+        background-color: rgba(102, 51, 153,0.5);
+    }
+}
 
 .section {
-    /*clip-path: polygon(100% 28%, 96% 20%, 90% 13%, 82% 8%, 74% 5%, 64% 3%, 58% 2%, 51% 1%, 45% 1%, 31% 1%, 25% 1%, 13% 4%, 7% 9%, 3% 13%, 0% 17%, 0% 18%, 0% 100%, 100% 100%);    font-size: 18px;*/
+    flex-grow: 1;
+    padding-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
     width: 100%;
-    padding: 5px;
-    border: 1px solid whitesmoke;
     text-align: center;
+
     cursor: pointer;
-    /*max-height: 30px;*/
+    background-color: rgba(100, 149, 237, 0.27);
 }
 
-
 .section.active {
-    transition: height 0.6s ease-in-out;
+    transition: height 0.5s ease-in-out;
     height: 620px;
     flex-grow: 1;
     cursor: auto;
 }
-.section:first-child {
-    border-radius: 30px 30px 0 0 ;
-}
-.section:last-child {
-    border-radius:  0 0 30px 30px;
-}
 .section:not(.active) {
-    transition: height 0.6s ease-in-out;
+    transition: height 0.5s ease-in-out;
     height: 35px;
 }
+
 
 .section p {
     user-select: none;
     margin-top: 0;
-    font-size: 20px;
+    padding-bottom: 5px;
+    font-size: 21px;
     font-weight: bold;
 }
 
-input{
+.section a{
+    font-weight: bold;
+    margin-left: 40px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: left;
+}
+
+.section button{
     outline: none;
     border: none;
-    height: 30px;
-    width: 90%;
+    width: 22%;
+    height: 8%;
+    border-radius: 15px;
+    transition: scale 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.section input {
+    font-weight: bold;
+    font-size: 15px;
+    padding-left: 20px;
+    margin-bottom: 30px;
+    height: 40px;
+    outline: none;
+    border: none;
+    width: 80%;
     border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.78);
 }
 
 
@@ -65,66 +119,3 @@ input{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*backup with decent animation*/
-/*.main_box {*/
-/*    width: 600px;*/
-/*    height: 800px;*/
-/*    margin: 0 auto;*/
-/*    border: 2px solid black;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*}*/
-
-
-/*.section {*/
-/*    width: 100%;*/
-/*    padding: 5px;*/
-/*    border: 2px solid black;*/
-/*    text-align: center;*/
-/*    cursor: pointer;*/
-/*    transition: max-height 1s ease-in-out;*/
-/*    max-height: 1000px;*/
-/*    background-color: aqua;*/
-
-/*    !*clip-path: polygon(0% 0%, 90% 10%, 100% 70%, 50% 100%, 0% 70%); !* Define the custom shape *!*!*/
-/*}*/
-
-/*.section:last-child {*/
-/*    border-bottom: none;*/
-/*}*/
-
-/*.section.active {*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.section:not(.active) {*/
-/*    max-height: 35px; !* Set the max-height to 0 for inactive sections *!*/
-/*}*/
-
-/*.section p {*/
-/*    margin-top: 0;*/
-/*}*/

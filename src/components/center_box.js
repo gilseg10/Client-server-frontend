@@ -4,18 +4,12 @@ import '../styles/login_box_style.css';
 const ExpandingBox = () => {
     const [activeSection, setActiveSection] = useState('section1');
 
-    const handleSectionClick = (section) => {
-        // this prevents closing all tabs and leaves one open constantly
-        if (activeSection === section) {
-            return;
-        }
-        setActiveSection(section);
-    };
 
-    const sectionColors = {
-        section1: 'rgba(255,160,122,0.57)',
-        section2: 'rgba(144,238,144,0.51)',
-        section3: 'rgba(135,206,235,0.6)',
+    // this handles the click on a section and prevents closing all tabs leaving one open constantly
+    const handleSectionClick = (section) => {
+        if (activeSection === section)
+            return;
+        setActiveSection(section);
     };
 
     const isSectionActive = (section) => {
@@ -26,27 +20,40 @@ const ExpandingBox = () => {
         <div className="main_box">
             <div
                 className={`section ${isSectionActive('section1') ? 'active' : ''}`}
-                style={{ backgroundColor: sectionColors.section1 }}
                 onClick={() => handleSectionClick('section1')}
             >
                 <p>Login</p>
-                {isSectionActive('section1') && (
-                    <>
-                        <input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />
-                        <button onClick={(e) => e.stopPropagation()}>Login</button>
-                    </>
-                )}
+                    {isSectionActive('section1') && (
+                        <>
+                            <a>Username</a>
+                            <input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />
+                            <a>Password</a>
+                            <input type="password" placeholder="Password" onClick={(e) => e.stopPropagation()} />
+
+                            <button onClick={(e) => e.stopPropagation()}>Login</button>
+                        </>
+                    )}
             </div>
 
             <div
                 className={`section ${isSectionActive('section2') ? 'active' : ''}`}
-                style={{ backgroundColor: sectionColors.section2 }}
                 onClick={() => handleSectionClick('section2')}
             >
                 <p>sign-up</p>
                 {isSectionActive('section2') && (
                     <>
-                        <input type="text" placeholder="Your E-mail" onClick={(e) => e.stopPropagation()} />
+                        <a>Username</a>
+                        <input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />
+                        <a>Password</a>
+                        <input type="password" placeholder="password" onClick={(e) => e.stopPropagation()} />
+                        <a>Confirm password</a>
+                        <input type="password" placeholder="confirm password" onClick={(e) => e.stopPropagation()} />
+                        <a>E-mail</a>
+                        <input type="email" placeholder="Your E-mail" onClick={(e) => e.stopPropagation()} />
+                        <a>Phone-number</a>
+                        <input type="text" placeholder="phone number" onClick={(e) => e.stopPropagation()} />
+
+
                         <button onClick={(e) => e.stopPropagation()}>Sign-up</button>
                     </>
                 )}
@@ -54,14 +61,13 @@ const ExpandingBox = () => {
 
             <div
                 className={`section ${isSectionActive('section3') ? 'active' : ''}`}
-                style={{ backgroundColor: sectionColors.section3 }}
                 onClick={() => handleSectionClick('section3')}
             >
                 <p>forgot password</p>
                 {isSectionActive('section3') && (
                     <>
                         <input type="text" placeholder="your E-mail" onClick={(e) => e.stopPropagation()} />
-                        <button onClick={(e) => e.stopPropagation()}>reset password</button>
+                        <button onClick={(e) => e.stopPropagation()}>Reset my password</button>
                     </>
                 )}
             </div>
@@ -162,6 +168,3 @@ export default ExpandingBox;
 // };
 //
 // export default ExpandingBox;
-
-
-
