@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/login_box_style.css';
+import TextBox from "./textBox";
 
 const ExpandingBox = () => {
     const [activeSection, setActiveSection] = useState('section1');
@@ -26,9 +27,11 @@ const ExpandingBox = () => {
                     {isSectionActive('section1') && (
                         <>
                             <a>Username</a>
-                            <input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />
+                            <TextBox type="username"/>
+                            {/*<input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />*/}
                             <a>Password</a>
-                            <input type="password" placeholder="Password" onClick={(e) => e.stopPropagation()} />
+                            <TextBox type="password"/>
+                            {/*<input type="password" placeholder="Password" onClick={(e) => e.stopPropagation()} />*/}
 
                             <button onClick={(e) => e.stopPropagation()}>Login</button>
                         </>
@@ -43,17 +46,15 @@ const ExpandingBox = () => {
                 {isSectionActive('section2') && (
                     <>
                         <a>Username</a>
-                        <input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />
+                        <TextBox type="username"/>
                         <a>Password</a>
-                        <input type="password" placeholder="password" onClick={(e) => e.stopPropagation()} />
+                        <TextBox type="password"/>
                         <a>Confirm password</a>
-                        <input type="password" placeholder="confirm password" onClick={(e) => e.stopPropagation()} />
+                        <TextBox type="password"/>
                         <a>E-mail</a>
-                        <input type="email" placeholder="Your E-mail" onClick={(e) => e.stopPropagation()} />
+                        <TextBox type="email"/>
                         <a>Phone-number</a>
-                        <input type="text" placeholder="phone number" onClick={(e) => e.stopPropagation()} />
-
-
+                        <TextBox type="phone"/>
                         <button onClick={(e) => e.stopPropagation()}>Sign-up</button>
                     </>
                 )}
@@ -66,7 +67,7 @@ const ExpandingBox = () => {
                 <p>forgot password</p>
                 {isSectionActive('section3') && (
                     <>
-                        <input type="text" placeholder="your E-mail" onClick={(e) => e.stopPropagation()} />
+                        <TextBox type="phone"/>
                         <button onClick={(e) => e.stopPropagation()}>Reset my password</button>
                     </>
                 )}

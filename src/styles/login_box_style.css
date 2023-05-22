@@ -95,6 +95,29 @@
     cursor: pointer;
 }
 
+@keyframes buttonAnimation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.section button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2196f3;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.section button:hover {
+    animation: buttonAnimation 1s infinite;
+}
+
 .section input {
     font-weight: bold;
     font-size: 15px;
