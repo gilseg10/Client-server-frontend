@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
         <h1 id="header">
-            welcome to Meckano V2.0
+            welcome to PunchClock
         </h1>
         <ExpandingBox />
     </div>

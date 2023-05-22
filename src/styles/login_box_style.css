@@ -19,6 +19,19 @@
         border-radius:  0 0 30px 30px;
         background-color: rgba(102, 51, 153,0.5);
     }
+
+    #errorMessage{
+        position: absolute;
+        right: -130px;
+        top: 0;
+        padding: 10px;
+        border: 1px solid red;
+        background-color: #ffe6e6;
+        color: red;
+        border-radius: 0 15px 15px 15px;
+        width: 140px;
+        font-size: 13px;
+    }
 }
 
 
@@ -45,19 +58,18 @@
 
 .section {
     flex-grow: 1;
-    padding-top: 15px;
+    padding-top: 10px;
     font-weight: bold;
     font-size: 16px;
     width: 100%;
     text-align: center;
-
     cursor: pointer;
     background-color: rgba(100, 149, 237, 0.27);
 }
 
 .section.active {
     transition: height 0.5s ease-in-out;
-    height: 620px;
+    height: 670px;
     flex-grow: 1;
     cursor: auto;
 }
@@ -78,6 +90,7 @@
 .section a{
     font-weight: bold;
     margin-left: 40px;
+    margin-top: 20px;
     margin-bottom: 10px;
     display: flex;
     justify-content: left;
@@ -86,7 +99,7 @@
 .section button{
     outline: none;
     border: none;
-    width: 22%;
+    width: 23%;
     height: 8%;
     border-radius: 15px;
     transition: scale 0.3s ease-in-out;
@@ -97,14 +110,15 @@
 
 @keyframes buttonAnimation {
     0%, 100% {
-        transform: scale(1);
+        transform: scale(0.95);
     }
     50% {
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 }
 
 .section button {
+    margin-top: 15px;
     display: inline-block;
     padding: 10px 20px;
     background-color: #2196f3;
@@ -115,14 +129,13 @@
 }
 
 .section button:hover {
-    animation: buttonAnimation 1s infinite;
+    animation: buttonAnimation 2s infinite;
 }
 
 .section input {
     font-weight: bold;
     font-size: 15px;
     padding-left: 20px;
-    margin-bottom: 30px;
     height: 40px;
     outline: none;
     border: none;
@@ -132,8 +145,14 @@
     background-color: rgba(255, 255, 255, 0.78);
 }
 
+#input_container{
+    position: relative;
+}
 
-
+#errorMessage{
+    color: #ff3e3e;
+    font-size: 14px;
+}
 
 
 

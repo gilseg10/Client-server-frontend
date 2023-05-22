@@ -6,25 +6,44 @@ function InputField(props) {
 
     function validateInput(type, value) {
         let regex;
+        let regex2;
+
+        // clear the error message if the text box is empty
+        if (!value) return '';
+
         switch (type) {
+            // check for a valid username without spaces and without special characters
             case 'username':
-                // Allow alphanumeric characters only
                 regex = /^[a-z0-9]+$/i;
-                return regex.test(value) ? '' : 'Only alphanumeric characters are allowed in username.';
+                regex2 = /\s/;
+                if ( regex2.test(value))
+                    return 'username cannot contain spaces'
+                if (! regex.test(value))
+                    return 'Username must be alphanumeric'
+                return ''
+
+            // check for a long enough password (also add special symbols and letters to make it more annoying...)
             case 'password':
-                // Enforce minimum length
                 if (value.length < 6) {
-                    return 'Password Must be at least 6 characters long.';
+                    return 'Password needs 6+ characters';
                 }
                 return '';
+
+            // check for a valid email address using regex for a basic email structure
             case 'email':
-                // Basic email pattern check
                 regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-                return regex.test(value) ? '' : 'Email address.';
+                return regex.test(value) ? '' : 'Invalid Email address format';
+
+            // check for a valid phone number without characters and of length 10
             case 'phone':
-                // Simple check for phone numbers. This might vary depending on the country.
                 regex = /^[0-9]{10}$/;
-                return regex.test(value) ? '' : 'Phone number. Must be 10 digits.';
+                regex2 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).+$/;
+                if (regex.test(value))
+                    return 'Phone number Must be 10 digits'
+                if (! regex2.test(value))
+                    return 'No letters or symbols in phone number'
+                return ''
+
             default:
                 return '';
         }
@@ -37,9 +56,10 @@ function InputField(props) {
     }
 
     return (
-        <div>
-            <input type={props.type === 'password' ? 'password' : 'text'} value={value} onChange={handleChange} />
-            {errorMessage && <div>{errorMessage}</div>}
+        // maybe add an animation for the appearance and disappearance of the errorMessage message div below
+        <div id="input_container">
+            <input  type={props.type === 'password' ? 'password' : 'text'} value={value} placeholder={props.placeholder} onChange={handleChange} />
+            { errorMessage && <div id="errorMessage">{errorMessage}</div> }
         </div>
     );
 }

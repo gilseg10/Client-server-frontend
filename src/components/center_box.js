@@ -27,11 +27,9 @@ const ExpandingBox = () => {
                     {isSectionActive('section1') && (
                         <>
                             <a>Username</a>
-                            <TextBox type="username"/>
-                            {/*<input type="text" placeholder="Username" onClick={(e) => e.stopPropagation()} />*/}
+                            <TextBox type="username" placeholder="Username"/>
                             <a>Password</a>
-                            <TextBox type="password"/>
-                            {/*<input type="password" placeholder="Password" onClick={(e) => e.stopPropagation()} />*/}
+                            <TextBox type="password" placeholder="Password"/>
 
                             <button onClick={(e) => e.stopPropagation()}>Login</button>
                         </>
@@ -46,15 +44,15 @@ const ExpandingBox = () => {
                 {isSectionActive('section2') && (
                     <>
                         <a>Username</a>
-                        <TextBox type="username"/>
+                        <TextBox type="username" placeholder="Username"/>
                         <a>Password</a>
-                        <TextBox type="password"/>
+                        <TextBox type="password" placeholder="Password"/>
                         <a>Confirm password</a>
-                        <TextBox type="password"/>
+                        <TextBox type="password" placeholder="Confirm password"/>
                         <a>E-mail</a>
-                        <TextBox type="email"/>
+                        <TextBox type="email" placeholder="E-mail"/>
                         <a>Phone-number</a>
-                        <TextBox type="phone"/>
+                        <TextBox type="phone" placeholder="Phone number"/>
                         <button onClick={(e) => e.stopPropagation()}>Sign-up</button>
                     </>
                 )}
