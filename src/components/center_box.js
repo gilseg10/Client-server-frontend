@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../styles/login_box_style.css';
 import TextBox from "./textBox";
 
-const ExpandingBox = () => {
+const ExpandingBox = ({onSwitchScreen}) => {
     const [activeSection, setActiveSection] = useState('section1');
 
 
@@ -17,6 +17,11 @@ const ExpandingBox = () => {
         return activeSection === section;
     };
 
+    const log_in = () => {
+        // here we check if the user exists
+        onSwitchScreen();
+    }
+
     return (
         <div className="main_box">
             <div
@@ -30,8 +35,7 @@ const ExpandingBox = () => {
                             <TextBox type="username" placeholder="Username"/>
                             <a>Password</a>
                             <TextBox type="password" placeholder="Password"/>
-
-                            <button onClick={(e) => e.stopPropagation()}>Login</button>
+                            <button onClick={log_in}>Login</button>
                         </>
                     )}
             </div>
