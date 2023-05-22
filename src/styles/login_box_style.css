@@ -73,6 +73,7 @@
     flex-grow: 1;
     cursor: auto;
 }
+
 .section:not(.active) {
     transition: height 0.5s ease-in-out;
     height: 35px;

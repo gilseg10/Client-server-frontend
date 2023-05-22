@@ -13,12 +13,15 @@ const ExpandingBox = ({onSwitchScreen}) => {
         setActiveSection(section);
     };
 
+    // returns true if the passed section is the active section
     const isSectionActive = (section) => {
         return activeSection === section;
     };
 
+
     const log_in = () => {
         // here we check if the user exists
+        // here we get the screen from the server
         onSwitchScreen();
     }
 
