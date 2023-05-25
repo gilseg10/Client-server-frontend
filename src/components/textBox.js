@@ -20,14 +20,14 @@ function InputField(props) {
                     return 'username cannot contain spaces'
                 if (! regex.test(value))
                     return 'Username must be alphanumeric'
-                return ''
+                break;
 
             // check for a long enough password (also add special symbols and letters to make it more annoying...)
             case 'password':
                 if (value.length < 6) {
                     return 'Password needs 6+ characters';
                 }
-                return '';
+                break;
 
             // check for a valid email address using regex for a basic email structure
             case 'email':
@@ -42,8 +42,7 @@ function InputField(props) {
                     return 'Phone number Must be 10 digits'
                 if (! regex2.test(value))
                     return 'No letters or symbols in phone number'
-                return ''
-
+                break;
             default:
                 return '';
         }

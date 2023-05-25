@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import '../styles/login_box_style.css';
+import '../styles/Login_screen_style.css';
+import { useNavigate  } from 'react-router-dom';
 import TextBox from "./textBox";
 
 const ExpandingBox = ({onSwitchScreen}) => {
     const [activeSection, setActiveSection] = useState('section1');
-
+    const navigator = useNavigate ();
 
     // this handles the click on a section and prevents closing all tabs leaving one open constantly
     const handleSectionClick = (section) => {
@@ -18,11 +19,11 @@ const ExpandingBox = ({onSwitchScreen}) => {
         return activeSection === section;
     };
 
-
     const log_in = () => {
         // here we check if the user exists
-        // here we get the screen from the server
-        onSwitchScreen();
+        // some login logic
+        // here we get the user from the database
+        navigator("/home_screen")
     }
 
     return (
@@ -39,6 +40,10 @@ const ExpandingBox = ({onSwitchScreen}) => {
                             <a>Password</a>
                             <TextBox type="password" placeholder="Password"/>
                             <button onClick={log_in}>Login</button>
+                            <div id="buttons">
+                                <div className="sign_with" id="google_login"/>
+                                <div className="sign_with" id="apple_login"/>
+                            </div>
                         </>
                     )}
             </div>
@@ -72,7 +77,8 @@ const ExpandingBox = ({onSwitchScreen}) => {
                 <p>forgot password</p>
                 {isSectionActive('section3') && (
                     <>
-                        <TextBox type="phone"/>
+                        <a>E-mail</a>
+                        <TextBox type="phone" placeholder="E-mail"/>
                         <button onClick={(e) => e.stopPropagation()}>Reset my password</button>
                     </>
                 )}
@@ -105,7 +111,7 @@ export default ExpandingBox;
 
 // working backup with smewhat animation in css
 // import React, { useState } from 'react';
-// import '../styles/login_box_style.css'; // Import the CSS file for styling
+// import '../styles/Login_screen_style.css'; // Import the CSS file for styling
 //
 // const ExpandingBox = () => {
 //     const [activeSection, setActiveSection] = useState('section1');
