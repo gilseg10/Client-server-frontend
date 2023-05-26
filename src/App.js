@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login_screen from "./screens/Login_screen";
+import Login from "./screens/Login";
 import Home_screen from "./screens/Home";
-
 
 
 function App() {
@@ -10,7 +9,7 @@ function App() {
         // check which screen I need
         <Router>
             <Routes>
-                <Route path="/" element={<Login_screen/>}/>
+                <Route path="/" element={<Login/>}/>
                 <Route path="/home_screen" element={<Home_screen/>}/>
             </Routes>
         </Router>

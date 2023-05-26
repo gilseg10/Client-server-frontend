@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/App.css';
 import ExpandingBox from "../components/center_box";
 
-function Login_screen(){
+function Login(){
     return (
         <div className="background">
             <h1 id="header">
@@ -13,4 +13,4 @@ function Login_screen(){
     );
 }
 
-export default Login_screen;
+export default Login;

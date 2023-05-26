@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 function InputField(props) {
     const [value, setValue] = useState('');
@@ -17,12 +17,13 @@ function InputField(props) {
                 regex = /^[a-z0-9]+$/i;
                 regex2 = /\s/;
                 if ( regex2.test(value))
-                    return 'username cannot contain spaces'
+                    return 'No spaces allowed'
                 if (! regex.test(value))
-                    return 'Username must be alphanumeric'
+                    return 'no special characters allowed'
                 break;
 
             // check for a long enough password (also add special symbols and letters to make it more annoying...)
+            // also make it match the confirm password
             case 'password':
                 if (value.length < 6) {
                     return 'Password needs 6+ characters';
@@ -41,7 +42,7 @@ function InputField(props) {
                 if (regex.test(value))
                     return 'Phone number Must be 10 digits'
                 if (! regex2.test(value))
-                    return 'No letters or symbols in phone number'
+                    return 'No letters or symbols allowed'
                 break;
             default:
                 return '';
@@ -58,7 +59,7 @@ function InputField(props) {
         // maybe add an animation for the appearance and disappearance of the errorMessage message div below
         <div id="input_container">
             <input  type={props.type === 'password' ? 'password' : 'text'} value={value} placeholder={props.placeholder} onChange={handleChange} />
-            { errorMessage && <div id="errorMessage">{errorMessage}</div> }
+            { errorMessage && <div id="errorMessage" >{errorMessage}</div> }
         </div>
     );
 }

@@ -22,14 +22,14 @@
 
     #errorMessage{
         position: absolute;
-        right: -130px;
-        top: 0;
-        padding: 10px;
+        right: 7.5%;
+        top: 42px;
+        padding: 5px;
         border: 1px solid red;
-        background-color: #ffe6e6;
+        background-color: rgba(255, 230, 230, 0.55);
         color: red;
-        border-radius: 0 15px 15px 15px;
-        width: 140px;
+        border-radius: 0 10px 10px 10px;
+        width: 200px;
         font-size: 13px;
     }
 
@@ -38,15 +38,10 @@
         padding-bottom: 50px;
         margin: 0 auto;
         display: flex;
-        justify-content: center; /* Center horizontally */
+        justify-content: center;
         align-items: center;
-
-        color: #ffadad; font-family: 'Raleway',sans-serif;
         font-size: 40px;
         font-weight: 800;
-        line-height: 32px;
-        text-align: center;
-        text-transform: uppercase;
     }
 }
 
@@ -74,18 +69,22 @@
     #header {
         position: absolute;
         top: 10px;
-        left: 20px;
+        left: 8%;
+        justify-content: center;
         z-index: 1;
         font-weight: 900;
         font-size: 22px;
-
-        color: #f57979; font-family: 'Raleway',sans-serif;
-        line-height: 32px;
-        text-align: center;
-        text-transform: uppercase;
-        /*display: none;*/
     }
 }
+
+
+#header{
+    color: #ffadad; font-family: 'Raleway',sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 32px;
+}
+
 
 .section {
     flex-grow: 1;
@@ -96,6 +95,7 @@
     text-align: center;
     cursor: pointer;
     background-color: rgba(100, 149, 237, 0.27);
+    overflow: hidden;
 }
 
 .section.active {
@@ -128,28 +128,21 @@
     justify-content: left;
 }
 
-.section button{
-    outline: none;
-    border: none;
-    width: 27%;
-    height: 10%;
-    border-radius: 15px;
-    transition: scale 0.3s ease-in-out;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-}
-
 
 .section button {
-    margin-top: 15px;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    width: 27%;
+    height: 10%;
+    margin-top: 35px;
     display: inline-block;
     padding: 10px 20px;
     background-color: #2196f3;
     color: white;
-    font-size: 16px;
-    border: none;
+    font-size: 14px;
     cursor: pointer;
+    font-weight: bold;
     transition: scale 0.3s ease-in-out;
 }
 
@@ -181,8 +174,6 @@
 }
 
 
-
-
 #buttons{
     display: flex;
     gap: 100px;
@@ -197,21 +188,19 @@
     height: 50px;
     border-radius: 10px;
     background-color: rgba(236, 236, 236, 0.67);
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color ,scale 0.3s ease-in-out;
 }
+.sign_with:hover{
+    background-color: rgba(213, 213, 213, 0.67);
+    scale: 1.03;
+}
+
 #google_login{
     background-image: url("../assets/google_icon.png");
 }
-#google_login:hover{
-    background-color: rgba(203, 203, 203, 0.67);
-}
-
 #apple_login{
     background-image: url("../assets/apple_icon.png");
 }
 
-#apple_login:hover{
-    background-color: rgba(203, 203, 203, 0.67);
-}
 
 
