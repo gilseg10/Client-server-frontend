@@ -18,6 +18,11 @@ function Clock(props) {
         set_start_time("start: 00:00:00")
         set_end_time("end: 23:59:59")
         console.log("click!")
+
+
+        console.log(circle_radius)
+        console.log(circle_fill_color)
+        console.log(circle_circumference)
     }
 
 
@@ -34,14 +39,15 @@ function Clock(props) {
                     onClick={timer}
                     className="progress-ring__circle" // change this class name later
                     stroke="white"
-                    stroke-width="5"
+                    strokeWidth="5" // for some reason javascript wants to rename this to strokeWidth
+
                     fill={circle_fill_color}
                     r={circle_radius}
                     cx="150"
                     cy="150"
                     style={{
                         strokeDasharray: `${circle_circumference} ${circle_circumference}`,
-                        strokeDashoffset: `${circle_circumference}`,
+                        strokeDashoffset: `${circle_circumference + 220}`, // check how to rotate it wo it will start from 90 deg and not from 0 deg
                     }}
                 />
             </svg>
