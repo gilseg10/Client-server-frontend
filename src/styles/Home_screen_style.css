@@ -1,8 +1,28 @@
 #home_main_box{
     background-color: rgba(177, 172, 253, 0.21);
+    font-weight: 800;
+    user-select: none;
+}
+button{
+    cursor: pointer;
 }
 
-
+@media (min-width: 1025px) {
+    #log_out{
+        border-radius: 0 15px 0 15px;
+    }
+    #settings{
+        border-radius: 15px 0 15px 0;
+    }
+}
+@media (min-width: 1px) and (max-width: 1024px){
+    #log_out{
+        border-radius: 0 0 0 15px;
+    }
+    #settings{
+        border-radius:  0 0 15px 0;
+    }
+}
 .util{
     position: absolute;
     top: 0;
@@ -13,52 +33,125 @@
     background-size: cover;
     background-repeat: no-repeat;
     border: none;
-    background-color: rgba(134, 134, 134, 0.4);
+    background-color: rgba(248, 248, 255, 0.18);
     transition: all 0.3s ease-in-out;
 }
 .util:hover{
-    background-color: rgba(134, 134, 134, 0.79);
-
+    background-color: rgba(248, 248, 255, 0.75);
 }
 #log_out{
     right: 0;
     background-image: url("../assets/logout_button.png");
-    border-radius: 0 15px 0 15px;
 }
 #settings{
     left: 0;
     background-image: url("../assets/settings_icon.png");
-    border-radius: 15px 0 15px 0;
+}
+
+.middle_buttons_div{
+    display: flex;
+    gap: 140px;
+}
+
+.middle_buttons_inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.middle_buttons{
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+    border: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: rgba(248, 248, 255, 0.18);
+    transition: all 0.3s ease-in-out;
+}
+.middle_buttons:hover{
+    background-color: rgba(248, 248, 255, 0.75);
+}
+#comment{
+    background-image: url("../assets/add_comment_icon.png");
+}
+#absence{
+    background-image: url("../assets/abscence_icon.png");
+}
+
+
+.bottom_buttons_div{
+    margin-top: 100px;
+    display: flex;
+    gap: 30px;
+}
+.bottom_buttons_div_inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+}
+.bottom_buttons{
+    width: 100px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: rgba(248, 248, 255, 0.18);
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.3s ease-in-out;
+}
+.bottom_buttons:hover{
+    background-color: rgba(248, 248, 255, 0.75);
+}
+#report{
+    background-image: url("../assets/report_icon.png");
+}
+#Set_hours{
+    background-image: url("../assets/abscence_icon.png");
+}
+
+
+#container{
+    position: relative;
+    margin-top: 100px;
 }
 
 .svg_circle{
     transition: all 0.5s ease-in-out;
+    cursor: pointer;
 }
 
 .progress_ring{
     rotate: -90deg;
 }
 
-#container{
-    position: relative;
-}
-
 #circle_label{
     position: absolute;
-    top: 123px;
-    left: 105px;
-    font-size: 35px;
+    top: 100px;
+    left: 102px;
+    font-size: 37px;
     font-weight: 900;
     font-family: 'Raleway',sans-serif;
     user-select: none;
     pointer-events: none;
     color: ghostwhite;
 }
+#elapsed_time{
+    position: absolute;
+    top: 130px;
+    left: 103px;
+    font-family: 'Raleway',sans-serif;
+    user-select: none;
+    pointer-events: none;
+    font-weight: 900;
+    font-size: 23px;
+    color: ghostwhite;
+}
 
 .time_labels_div{
     position: relative;
-    background-color: #1b67ef;
-
 }
 .time_labels{
     position: absolute;
@@ -72,11 +165,11 @@
     pointer-events: none;
 }
 #start_time{
-    bottom: 0;
+    top: 50px;
     right: 4vw;
 }
 
 #end_time{
-    bottom: 0;
+    top: 50px;
     left: 4vw;
 }

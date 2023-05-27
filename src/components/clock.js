@@ -15,7 +15,20 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
     const [offset_from_start, set_circle_offset] = useState(0);
 
     const [timeFill, set_time_fill] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0);
 
+
+
+    // TODO: add timeout after timer cancel so the user cant start a new one until the old one is clear
+    function clear_times(){
+        const timeoutID = setTimeout(() => {
+            set_start_time("")
+            set_end_time("")
+        }, 5000);
+
+        // Cleanup function to clear the timeout in case the component is unmounted before the delay
+        return () => clearTimeout(timeoutID);
+    }
     const timer_toggle = () => {
         if (timer_started){ // TODO: add a popup with "are you sure" to stop the user from spamming the circle and trashing the database.
             stop_timer();
@@ -30,8 +43,11 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
         let time = new Date()
         set_start_time("Clock-in " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
 
+        // TODO: remove number later, its for debugging
+        // TODO: add logics when the circle fills then stop timer
         const newTimeFill = setInterval(() => { // Move this line to here
-            set_circle_offset(offset_from_start => offset_from_start + timer_interval + 5);  // TODO: remove number later, its for debugging
+            set_circle_offset(offset_from_start => offset_from_start + timer_interval + 5);
+            setElapsedTime(elapsedTime => elapsedTime + 1); // add this line
         }, 1000);
 
         set_time_fill(newTimeFill)
@@ -46,13 +62,17 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
         clearInterval(timeFill);
         set_time_fill(null);
         set_circle_offset(0);
+        setElapsedTime(0);
+
+
+        clear_times() // hide the times after timer cancels
     }
 
     return (
         <div id="container">
             <svg
                 className="progress_ring"
-                width="300" // adapt size dynamically after i make the center box
+                width="300"
                 height="300">
 
                 <circle
@@ -85,7 +105,10 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
                 ))}
             </svg>
             <a id="circle_label">{center_label}</a>
-
+            <p id="elapsed_time">{Math.floor(elapsedTime / 3600)}:
+                {(Math.floor(elapsedTime / 60) % 60 < 10 ? '0' : '') + Math.floor(elapsedTime / 60) % 60}:
+                {(elapsedTime % 60 < 10 ? '0' : '') + elapsedTime % 60}
+            </p>
         </div>
     );
 }
