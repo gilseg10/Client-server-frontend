@@ -3,7 +3,7 @@ import '../styles/Login_screen_style.css';
 import { useNavigate  } from 'react-router-dom';
 import TextBox from "./textBox";
 
-const ExpandingBox = ({onSwitchScreen}) => {
+const Login_box = ({onSwitchScreen}) => {
     const [activeSection, setActiveSection] = useState('section1');
     const navigator = useNavigate ();
 
@@ -27,7 +27,7 @@ const ExpandingBox = ({onSwitchScreen}) => {
     }
 
     return (
-        <div className="main_box">
+        <div className="main_box" id="login_main">
             <div
                 className={`section ${isSectionActive('section1') ? 'active' : ''}`}
                 onClick={() => handleSectionClick('section1')}
@@ -87,4 +87,4 @@ const ExpandingBox = ({onSwitchScreen}) => {
     );
 };
 
-export default ExpandingBox;
+export default Login_box;

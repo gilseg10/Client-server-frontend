@@ -1,4 +1,15 @@
 @media (min-width: 1025px) {
+    .main_box {
+        width: 28%;
+        height: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 30px;
+        backdrop-filter: blur(10px);
+    }
     .background{
         background-image: url("http://wallpaperswide.com/download/landscape_illustration-wallpaper-3440x1440.jpg");
         background-size: cover;
@@ -7,10 +18,32 @@
         height: 100vh;
         overflow: hidden;
     }
+
+    #header{
+        padding-top: 20px;
+        padding-bottom: 50px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 40px;
+        font-weight: 800;
+    }
 }
 
 
-@media (min-width: 10px) and (max-width: 1024px){
+@media (min-width: 1px) and (max-width: 1024px){
+    .main_box {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        backdrop-filter: blur(10px);
+    }
+
     .background{
         background-image: url("../assets/background_mobile.jpg");
         background-size: cover;
@@ -20,10 +53,28 @@
         align-items: center;
         flex-direction: column;
     }
+
+    #header {
+        position: absolute;
+        top: 10px;
+        left: 8%;
+        justify-content: center;
+        z-index: 1;
+        font-weight: 900;
+        font-size: 22px;
+    }
 }
 
 
-
+#header{
+    color: #ffadad;
+    font-family: 'Raleway',sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 32px;
+    user-select: none;
+    pointer-events: none;
+}
 
 
 

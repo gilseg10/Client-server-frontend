@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/App.css';
-import ExpandingBox from "../components/center_box";
+import Login_box from "../components/login_box";
 
 function Login(){
     return (
@@ -8,7 +8,7 @@ function Login(){
             <h1 id="header">
                 welcome to Solid-Clock
             </h1>
-            <ExpandingBox />
+            <Login_box />
         </div>
     );
 }
