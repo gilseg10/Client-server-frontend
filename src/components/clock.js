@@ -43,10 +43,9 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
         let time = new Date()
         set_start_time("Clock-in " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
 
-        // TODO: remove number later, its for debugging
         // TODO: add logics when the circle fills then stop timer
         const newTimeFill = setInterval(() => { // Move this line to here
-            set_circle_offset(offset_from_start => offset_from_start + timer_interval + 5);
+            set_circle_offset(offset_from_start => offset_from_start + timer_interval + 5); // TODO: remove number later, its for debugging
             setElapsedTime(elapsedTime => elapsedTime + 1); // add this line
         }, 1000);
 

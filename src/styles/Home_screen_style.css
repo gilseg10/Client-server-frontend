@@ -2,6 +2,7 @@
     background-color: rgba(177, 172, 253, 0.21);
     font-weight: 800;
     user-select: none;
+    padding-bottom: 20px;
 }
 button{
     cursor: pointer;
@@ -50,7 +51,7 @@ button{
 
 .middle_buttons_div{
     display: flex;
-    gap: 140px;
+    gap: 120px;
 }
 
 .middle_buttons_inner{
@@ -67,7 +68,7 @@ button{
     border: none;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: rgba(248, 248, 255, 0.18);
+    background-color: rgba(248, 248, 255, 0.25);
     transition: all 0.3s ease-in-out;
 }
 .middle_buttons:hover{
@@ -97,9 +98,10 @@ button{
     height: 50px;
     border-radius: 15px;
     border: none;
-    background-color: rgba(248, 248, 255, 0.18);
-    background-size: cover;
+    background-color: rgba(248, 248, 255, 0.25);
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
     transition: all 0.3s ease-in-out;
 }
 .bottom_buttons:hover{
@@ -108,8 +110,8 @@ button{
 #report{
     background-image: url("../assets/report_icon.png");
 }
-#Set_hours{
-    background-image: url("../assets/abscence_icon.png");
+#view_table{
+    background-image: url("../assets/view_table.png");
 }
 
 
@@ -173,3 +175,65 @@ button{
     top: 50px;
     left: 4vw;
 }
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.attendance_table {
+    margin-right: 100px;
+    width: 50%;
+    background-color: rgba(0, 255, 255, 0.63);
+    border-radius: 20px;
+}
+
+#table_exit_button{
+    background-image: url("../assets/back_button.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    position: relative;
+    border: none;
+    background-color: transparent;
+    top: 0;
+    left: 0;
+    height: 45px;
+    width: 45px;
+    border-radius: 20px 0 20px 0;
+    transition: all 0.3s ease-in-out;
+
+}
+
+#table_exit_button:hover{
+    background-color: rgba(248, 248, 255, 0.49);
+}
+
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
