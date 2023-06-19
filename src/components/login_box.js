@@ -23,8 +23,26 @@ const Login_box = ({onSwitchScreen}) => {
         // here we check if the user exists
         // some login logic
         // here we get the user from the database
+        set_session_cookie()
         navigator("/home_screen")
     }
+
+
+
+    // TODO: improve these two below
+    const set_session_cookie = (username, password) => { document.cookie = 'Clock_sign_in_valid ; path=/'; }
+    const already_signed_in_this_session = () => {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.startsWith("Clock_sign_in_valid"))
+                return true
+        }
+        return false;
+    }
+
+    if (already_signed_in_this_session())
+        navigator("/home_screen")
 
     return (
         <div className="main_box" id="login_main">
