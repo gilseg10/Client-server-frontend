@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import "../styles/Home_screen_style.css"
+import Dropdown from "./dropown";
 
 function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableOnMobile}) {
 
@@ -9,40 +10,41 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
     };
 
     const days = [
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
-        {date: '01.06.2022', total_time: "08:30 - 14:00  |  05:30"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
+        {date: '01.06.2022', total_time: "05:30:35"},
         // TODO: add real data ...
     ];
+
+    const totalTimes = days.map((day) => day.total_time);
+
 
     return (
         tableVisible && (
@@ -50,7 +52,7 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                 <button id="table_exit_button" onClick={handleTableExit}></button>
 
                 <div id="header_div">
-                    <table id="table" >
+                    <table id="table">
                         <thead>
                         <tr>
                             <th className="date">Date</th>
@@ -66,7 +68,7 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                         {days.map((item, index) => (
                             <tr key={index}>
                                 <td className="date" >{item.date}</td>
-                                <td className="times" >{item.total_time}</td>
+                                <td className="times" > <Dropdown options={totalTimes}/> </td>
                                 <td className="table_buttons" >
                                     <button id="comment_table" ></button>
                                     <button id="absence_table" ></button>

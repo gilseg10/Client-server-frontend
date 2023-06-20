@@ -28,9 +28,8 @@ const Login_box = ({onSwitchScreen}) => {
     }
 
 
-
     // TODO: improve these two below
-    const set_session_cookie = (username, password) => { document.cookie = 'Clock_sign_in_valid ; path=/'; }
+    const set_session_cookie = () => { document.cookie = 'Clock_sign_in_valid ; path=/'; }
     const already_signed_in_this_session = () => {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
@@ -41,8 +40,9 @@ const Login_box = ({onSwitchScreen}) => {
         return false;
     }
 
-    if (already_signed_in_this_session())
+    if (already_signed_in_this_session()){
         navigator("/home_screen")
+    }
 
     return (
         <div className="main_box" id="login_main">

@@ -29,7 +29,7 @@ function Home_screen(){
 
     useEffect(() => {
         const handleWindowResize = () => {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1100) {
                 // Mobile
                 setShowTableOnMobile(true);
                 console.log("mobile")
@@ -77,9 +77,10 @@ function Home_screen(){
     return(
         <div className="background">
 
-            <h1 id="header">
+            {((showTableOnMobile && !tableVisible) || (!showTableOnMobile)) && ( <h1 id="header">
                 Welcome back $$name$$
-            </h1>
+            </h1>)}
+
             {modalOpen && (
                 <div className="modal">
                     <div className="modal-content" ref={modalRef}>
@@ -128,8 +129,6 @@ function Home_screen(){
                         </div>
                     </div>
                 )}
-                {/*{tableVisible && ( <Table tableVisible={tableVisible} setTableVisible={setTableVisible} /> )}*/}
-
 
                 {/* On mobile */}
                 {showTableOnMobile && (
