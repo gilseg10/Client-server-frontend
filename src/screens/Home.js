@@ -75,6 +75,11 @@ function Home_screen(){
         setreportModalOpen(false);
     };
 
+    function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+
     useEffect(() => {
         const handleWindowResize = () => {
             if (window.innerWidth <= 1100) {
@@ -131,6 +136,7 @@ function Home_screen(){
             }
         };
 
+
         // document.addEventListener('mousedown', handleClickOutsideReportModal);
         // document.addEventListener('keydown', handleEscapeKey);
 
@@ -153,6 +159,12 @@ function Home_screen(){
     }, []);
 
 
+    async function generate_report(){
+        openReportModal()
+        await sleep(3000);
+        closeReportModal()
+    }
+
     const workAbsenceReasons = [
         { reason: 'Sick Leave' },
         { reason: 'Personal Leave' },
@@ -161,10 +173,6 @@ function Home_screen(){
 
     const reason_list = workAbsenceReasons.map((reasons) => reasons.reason);
 
-
-    const upload_shift_data = () => {
-
-    }
 
 
     return(
@@ -239,7 +247,7 @@ function Home_screen(){
 
                         <div className="bottom_buttons_div">
                             <div className="bottom_buttons_div_inner">
-                                <button className="bottom_buttons" id="report" onClick={openReportModal}></button>
+                                <button className="bottom_buttons" id="report" onClick={generate_report}></button>
                                 <div>Report</div>
                             </div>
 

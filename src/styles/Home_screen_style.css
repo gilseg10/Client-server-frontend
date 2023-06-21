@@ -52,6 +52,10 @@ button{
     th:last-child{
         border-radius: 0 20px 0 0;
     }
+
+    .modal-content {
+        width: 30%;
+    }
 }
 
 @media (min-width: 1px) and (max-width: 1024px){
@@ -85,7 +89,14 @@ button{
     .attendance_table{
         width: 100%;
     }
+
+    .modal-content {
+        width: 70%;
+    }
 }
+
+
+
 
 .times{
     overflow-block: visible;
@@ -157,8 +168,8 @@ button{
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.27);
     backdrop-filter: blur(2px);
+    overflow-block: visible;
 }
-
 .modal-content {
     backdrop-filter: blur(10px);
 
@@ -166,10 +177,11 @@ button{
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
     max-width: 600px;
     border-radius: 20px;
     text-align: center;
+    overflow-block: visible;
+
 }
 
 
