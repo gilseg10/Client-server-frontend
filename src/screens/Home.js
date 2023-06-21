@@ -4,6 +4,8 @@ import '../styles/Home_screen_style.css'
 import Clock from "../components/clock";
 import {useNavigate} from "react-router-dom";
 import Table from "../components/table";
+import Dropdown from "../components/dropown";
+import Loader from "../components/loader";
 
 function Home_screen(){
     const [start_time, set_start_time] = useState('');
@@ -11,13 +13,34 @@ function Home_screen(){
     const navigator = useNavigate ();
     const [tableVisible, setTableVisible] = useState(false);
     const [showTableOnMobile, setShowTableOnMobile] = useState(false);
-    const modalRef = useRef(null);
+
+    const settings_modal = useRef(null);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const comment_modal = useRef(null);
+    const [commentModalOpen, setCommentModalOpen] = useState(false);
+
+    const [absenceModalOpen, setAbsenceModalOpen] = useState(false);
+    const absenceModalRef = useRef(null);
+
+    const [reportModalOpen, setreportModalOpen] = useState(false);
+    const reportModalRef = useRef(null);
+
+
+    const [comment, setComment] = useState("");
+
+
+    const shift = {
+        start: {start_time},
+        end: {end_time},
+        comment: {comment},
+        absence: "TODO"
+    };
 
     const log_out = () => {
         navigator("/")
     }
 
-    const [modalOpen, setModalOpen] = useState(false);
 
     const openModal = () => {
         setModalOpen(true);
@@ -25,6 +48,31 @@ function Home_screen(){
 
     const closeModal = () => {
         setModalOpen(false);
+    };
+
+
+    const openCommentModal = () => {
+        setCommentModalOpen(true);
+    };
+
+    const closeCommentModal = () => {
+        setCommentModalOpen(false);
+    };
+
+    const openAbsenceModal = () => {
+        setAbsenceModalOpen(true);
+    };
+
+    const closeAbsenceModal = () => {
+        setAbsenceModalOpen(false);
+    };
+
+    const openReportModal = () => {
+        setreportModalOpen(true);
+    };
+
+    const closeReportModal = () => {
+        setreportModalOpen(false);
     };
 
     useEffect(() => {
@@ -51,29 +99,74 @@ function Home_screen(){
 
     useEffect(() => {
         const handleClickOutsideModal = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
+            if (settings_modal.current && !settings_modal.current.contains(event.target)) {
                 closeModal();
+            }
+        };
+
+        const handleClickOutsideCommentModal = (event) => {
+            if (comment_modal.current && !comment_modal.current.contains(event.target)) {
+                closeCommentModal();
+            }
+        };
+
+        const handleClickOutsideReportModal = (event) => {
+            if (reportModalRef.current && !reportModalRef.current.contains(event.target)) {
+                closeReportModal();
+            }
+        };
+
+        const handleClickOutsideAbsenceModal = (event) => {
+            if (absenceModalRef.current && !absenceModalRef.current.contains(event.target)) {
+                closeAbsenceModal();
             }
         };
 
         const handleEscapeKey = (event) => {
             if (event.key === "Escape") {
                 closeModal();
+                closeCommentModal();
+                closeAbsenceModal();
+                // closeReportModal();
             }
         };
+
+        // document.addEventListener('mousedown', handleClickOutsideReportModal);
+        // document.addEventListener('keydown', handleEscapeKey);
+
+        document.addEventListener('mousedown', handleClickOutsideCommentModal);
+        document.addEventListener('keydown', handleEscapeKey);
 
         document.addEventListener('mousedown', handleClickOutsideModal);
         document.addEventListener('keydown', handleEscapeKey);
 
+        document.addEventListener('mousedown', handleClickOutsideAbsenceModal);
+        document.addEventListener('keydown', handleEscapeKey);
+
         return () => {
             document.removeEventListener('mousedown', handleClickOutsideModal);
+            document.removeEventListener('mousedown', handleClickOutsideCommentModal);
+            document.removeEventListener('mousedown', handleClickOutsideAbsenceModal);
+
             document.removeEventListener('keydown', handleEscapeKey);
         };
     }, []);
 
 
-    console.log("table on mobile: " + showTableOnMobile)
-    console.log("table visible: " + tableVisible)
+    const workAbsenceReasons = [
+        { reason: 'Sick Leave' },
+        { reason: 'Personal Leave' },
+        { reason: 'Vacation' },
+    ];
+
+    const reason_list = workAbsenceReasons.map((reasons) => reasons.reason);
+
+
+    const upload_shift_data = () => {
+
+    }
+
+
     return(
         <div className="background">
 
@@ -83,13 +176,41 @@ function Home_screen(){
 
             {modalOpen && (
                 <div className="modal">
-                    <div className="modal-content" ref={modalRef}>
-                        <span className="close" onClick={closeModal}>&times;</span>
+                    <div className="modal-content" ref={settings_modal}>
+                        <div className="close" onClick={closeModal}>&times;</div>
                         <h2>User settings:</h2>
                     </div>
                 </div>
             )}
+            {commentModalOpen && (
+                <div className="modal">
+                    <div className="modal-content" ref={comment_modal}>
+                        <div className="close" onClick={closeCommentModal}>&times;</div>
+                        <h2>Comment on today</h2>
+                        <textarea value={comment} onChange={e => setComment(e.target.value)}></textarea>
+                    </div>
+                </div>
+            )}
 
+            {absenceModalOpen && (
+                <div className="modal">
+                    <div className="modal-content" ref={absenceModalRef}>
+                        <div className="close" onClick={closeAbsenceModal}>&times;</div>
+                        <h2>Add absence reason</h2>
+                        <Dropdown options={reason_list}/>
+                    </div>
+                </div>
+            )}
+
+            {reportModalOpen && (
+                <div className="modal">
+                    <div className="modal-content" ref={reportModalRef}>
+                        {/*<span className="close" onClick={closeReportModal}>&times;</span>*/}
+                        <h2>generating PDF report</h2>
+                        <Loader/>
+                    </div>
+                </div>
+            )}
 
             <div className="container">
                 {((showTableOnMobile && !tableVisible) || (!showTableOnMobile)) && (
@@ -106,19 +227,19 @@ function Home_screen(){
 
                         <div className="middle_buttons_div">
                             <div className="middle_buttons_inner">
-                                <button className="middle_buttons" id="comment"></button>
+                                <button className="middle_buttons" id="comment" onClick={openCommentModal}></button>
                                 <div>Add comment</div>
                             </div>
 
                             <div className="middle_buttons_inner">
-                                <button className="middle_buttons" id="absence"></button>
+                                <button className="middle_buttons" id="absence" onClick={openAbsenceModal}></button>
                                 <div>Absence</div>
                             </div>
                         </div>
 
                         <div className="bottom_buttons_div">
                             <div className="bottom_buttons_div_inner">
-                                <button className="bottom_buttons" id="report"></button>
+                                <button className="bottom_buttons" id="report" onClick={openReportModal}></button>
                                 <div>Report</div>
                             </div>
 

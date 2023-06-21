@@ -9,7 +9,7 @@ function Dropdown({ options }) {
 
     return (
         <select id="dropdown" value={selectedOption} onChange={handleOptionChange}>
-            <option value="">Select option</option>
+            <option value="">not selected</option>
             {options.map((option) => (
                 <option key={option} value={option}>
                     {option}

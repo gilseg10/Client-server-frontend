@@ -18,7 +18,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
     const [elapsedTime, setElapsedTime] = useState(0);
 
 
-
     // TODO: add timeout after timer cancel so the user cant start a new one until the old one is clear
     function clear_times(){
         const timeoutID = setTimeout(() => {
@@ -41,12 +40,22 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
         set_timer_state(true);
         set_center_label("Stop")
         let time = new Date()
-        set_start_time("Clock-in " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+        let hours = time.getHours()
+        let minutes = time.getMinutes()
+        let seconds = time.getSeconds()
+        if (hours < 10)
+            hours = "0" + hours;
+        if (minutes < 10)
+            minutes = "0" + minutes;
+        if (seconds < 10)
+            seconds = "0" + seconds;
+
+        set_start_time("Clock-in " + hours + ":" + minutes + ":" + seconds);
 
         // TODO: add logics when the circle fills then stop timer
-        const newTimeFill = setInterval(() => { // Move this line to here
+        const newTimeFill = setInterval(() => {
             set_circle_offset(offset_from_start => offset_from_start + timer_interval + 5); // TODO: remove number later, its for debugging
-            setElapsedTime(elapsedTime => elapsedTime + 1); // add this line
+            setElapsedTime(elapsedTime => elapsedTime + 1);
         }, 1000);
 
         set_time_fill(newTimeFill)
@@ -55,7 +64,16 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
     const stop_timer = () => {
         set_timer_state(false);
         let time = new Date();
-        set_end_time("Clock-out " + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+        let hours = time.getHours()
+        let minutes = time.getMinutes()
+        let seconds = time.getSeconds()
+        if (hours < 10)
+            hours = "0" + hours;
+        if (minutes < 10)
+            minutes = "0" + minutes;
+        if (seconds < 10)
+            seconds = "0" + seconds;
+        set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
         set_center_label("Start")
 
         clearInterval(timeFill);

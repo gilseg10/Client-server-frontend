@@ -9,39 +9,27 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
         // setShowTableOnMobile(false);
     };
 
-    const days = [
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        {date: '01.06.2022', total_time: "05:30:35"},
-        // TODO: add real data ...
-    ];
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Month is zero-based, so add 1
+
+    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+    const days = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+        const formattedDate = `${day < 10 ? '0' + day : day}.${currentMonth < 10 ? '0' + currentMonth : currentMonth}.${currentYear}`;
+
+        const dataForDate = {
+            date: formattedDate,
+            total_time: '00:00:00',
+        };
+
+        // Push the data object to the days array
+        days.push(dataForDate);
+    }
+
 
     const totalTimes = days.map((day) => day.total_time);
 
@@ -68,7 +56,7 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                         {days.map((item, index) => (
                             <tr key={index}>
                                 <td className="date" >{item.date}</td>
-                                <td className="times" > <Dropdown options={totalTimes}/> </td>
+                                <td className="times"> <Dropdown options={totalTimes}/> </td>
                                 <td className="table_buttons" >
                                     <button id="comment_table" ></button>
                                     <button id="absence_table" ></button>
