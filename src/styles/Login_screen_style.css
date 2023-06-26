@@ -76,7 +76,7 @@
 }
 
 
-.section button {
+.section button, .modal-content button {
     outline: none;
     border: none;
     border-radius: 15px;
@@ -93,12 +93,12 @@
     transition: scale 0.3s ease-in-out;
 }
 
-.section button:hover {
+.section button:hover, .modal-content button:hover {
     scale: 1.05;
 }
 
 
-.section input {
+.section input ,.modal-content input{
     font-weight: bold;
     font-size: 15px;
     padding-left: 20px;
@@ -148,6 +148,3 @@
 #apple_login{
     background-image: url("../assets/apple_icon.png");
 }
-
-
-

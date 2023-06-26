@@ -54,12 +54,20 @@ function InputField(props) {
         setValue(event.target.value);
         const error = validateInput(props.type, event.target.value);
         setErrorMessage(error);
+
+        if (typeof props.onChange === 'function') {
+            props.onChange(value);
+        }
     }
 
     return (
         // maybe add an animation for the appearance and disappearance of the errorMessage message div below
         <div id="input_container">
-            <input  type={props.type === 'password' ? 'password' : 'text'} value={value} placeholder={props.placeholder} onChange={handleChange} />
+            <input
+                type={props.type === 'password' ? 'password' : 'text'}
+                value={value}
+                placeholder={props.placeholder}
+                onChange={handleChange} />
             { errorMessage && <div id="errorMessage" >{errorMessage}</div> }
         </div>
     );
