@@ -37,7 +37,8 @@
 @media (min-width: 1px) and (max-width: 1024px){
     .main_box {
         width: 100vw;
-        height: 97.6vh;
+        height: 100vh;
+        /*height: 97.6vh;*/
         display: flex;
         margin: 0 auto;
         justify-content: center;
@@ -59,7 +60,7 @@
 
     #header {
         position: absolute;
-        top: 10px;
+        top: 17px;
         left: 8%;
         justify-content: center;
         z-index: 1;

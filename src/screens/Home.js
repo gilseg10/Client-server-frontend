@@ -37,7 +37,10 @@ function Home_screen(){
         absence: "TODO"
     };
 
+    // TODO: also add logout cookie delete!!!!!!!!!!!!!!!!
     const log_out = () => {
+        document.cookie = `Clock_sign_in_valid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+
         navigator("/")
     }
 

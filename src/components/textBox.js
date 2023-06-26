@@ -36,6 +36,7 @@ function InputField(props) {
                 return regex.test(value) ? '' : 'Invalid Email address format';
 
             // check for a valid phone number without characters and of length 10
+            // removed, but left for possible future addition.
             case 'phone':
                 regex = /^[0-9]{10}$/;
                 regex2 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).+$/;
