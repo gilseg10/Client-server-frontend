@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import "../styles/Home_screen_style.css"
 
-function Clock({start_time, set_start_time, end_time, set_end_time}) {
+function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_start, set_circle_offset}) {
 
     const [center_label, set_center_label] = useState("Start");
     const [timer_started, set_timer_state] = useState(false);
@@ -12,7 +12,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
 
     // set the svg property states
     const [circle_fill_color, set_circle_fill_color] = useState("#FF4D4D76");
-    const [offset_from_start, set_circle_offset] = useState(0);
 
     const [timeFill, set_time_fill] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0);
@@ -60,6 +59,11 @@ function Clock({start_time, set_start_time, end_time, set_end_time}) {
 
         set_time_fill(newTimeFill)
     }
+
+    useEffect(() => {
+        console.log(offset_from_start);
+    }, [offset_from_start]);
+
 
     const stop_timer = () => {
         set_timer_state(false);

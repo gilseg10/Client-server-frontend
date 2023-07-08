@@ -10,6 +10,9 @@ import Loader from "../components/loader";
 function Home_screen(){
     const [start_time, set_start_time] = useState('');
     const [end_time, set_end_time] = useState('');
+    const [offset_from_start, set_circle_offset] = useState(0);
+
+
     const navigator = useNavigate ();
     const [tableVisible, setTableVisible] = useState(false);
     const [showTableOnMobile, setShowTableOnMobile] = useState(false);
@@ -25,6 +28,8 @@ function Home_screen(){
 
     const [reportModalOpen, setreportModalOpen] = useState(false);
     const reportModalRef = useRef(null);
+
+
 
 
     const [comment, setComment] = useState("");
@@ -196,9 +201,10 @@ function Home_screen(){
             {commentModalOpen && (
                 <div className="modal">
                     <div className="modal-content" ref={comment_modal}>
-                        <div className="close" onClick={closeCommentModal}>&times;</div>
+                        {/*<div className="close" onClick={closeCommentModal}>&times;</div>*/}
                         <h2>Comment on today</h2>
                         <textarea value={comment} onChange={e => setComment(e.target.value)}></textarea>
+                        <button onClick={closeCommentModal}>apply</button>
                     </div>
                 </div>
             )}
@@ -206,9 +212,10 @@ function Home_screen(){
             {absenceModalOpen && (
                 <div className="modal">
                     <div className="modal-content" ref={absenceModalRef}>
-                        <div className="close" onClick={closeAbsenceModal}>&times;</div>
+                        {/*<div className="close" onClick={closeAbsenceModal}>&times;</div>*/}
                         <h2>Add absence reason</h2>
                         <Dropdown options={reason_list}/>
+                        <button onClick={closeAbsenceModal}>apply</button>
                     </div>
                 </div>
             )}
@@ -234,7 +241,13 @@ function Home_screen(){
                             { end_time   && <a id="end_time"   className="time_labels" >{end_time}    </a> }
                         </div>
 
-                        <Clock start_time={start_time} set_start_time={set_start_time} end_time={end_time} set_end_time={set_end_time}/>
+                        <Clock start_time={start_time}
+                               set_start_time={set_start_time}
+                               end_time={end_time}
+                               set_end_time={set_end_time}
+                               offset_from_start={offset_from_start}
+                               set_circle_offset={set_circle_offset}
+                        />
 
                         <div className="middle_buttons_div">
                             <div className="middle_buttons_inner">

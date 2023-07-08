@@ -22,18 +22,20 @@ function InputField(props) {
                     return 'no special characters allowed'
                 break;
 
-            // check for a long enough password (also add special symbols and letters to make it more annoying...)
             // also make it match the confirm password
             case 'password':
                 if (value.length < 6) {
                     return 'Password needs 6+ characters';
                 }
+                if ( ! (value === props.validate))
+                    return 'Mismatched passwords'
                 break;
 
             // check for a valid email address using regex for a basic email structure
             case 'email':
                 regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
                 return regex.test(value) ? '' : 'Invalid Email address format';
+
 
             // check for a valid phone number without characters and of length 10
             // removed, but left for possible future addition.
@@ -51,12 +53,13 @@ function InputField(props) {
     }
 
     function handleChange(event) {
-        setValue(event.target.value);
+        const updatedValue = event.target.value;
+        setValue(updatedValue);
         const error = validateInput(props.type, event.target.value);
         setErrorMessage(error);
 
         if (typeof props.onChange === 'function') {
-            props.onChange(value);
+            props.onChange(updatedValue);
         }
     }
 

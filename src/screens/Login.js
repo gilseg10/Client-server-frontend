@@ -32,7 +32,7 @@ function Login(){
     return (
         <div className="background">
             <h1 id="header">
-                welcome to Solid-Clock
+                welcome to Solid-clock
             </h1>
             {forgot_modal_show && (
                 <div className="modal">
