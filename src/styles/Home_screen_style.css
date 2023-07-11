@@ -39,10 +39,10 @@ button{
     }
 
     .date{
-        width: 20%;
+        width: 8%;
     }
     .times{
-        width: 60%;
+        width: 80%;
         padding: 10px;
     }
 
@@ -77,10 +77,10 @@ button{
         overflow: hidden;
     }
     .date{
-        width: 26%;
+        width: 21%;
     }
     .times{
-        width: 47%;
+        width: 55%;
         padding: 10px;
     }
     .container{
@@ -92,9 +92,6 @@ button{
 
     .modal-content {
         width: 70%;
-    }
-    #dropdown{
-        border: 1px solid black;
     }
 }
 
@@ -378,12 +375,6 @@ tr:nth-child(odd) {
     font-size: 18px;
 }
 
-.table_buttons{
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 10px;
-}
 
 th{
     background-color: rgba(120, 191, 255, 0.49);
@@ -396,33 +387,18 @@ tr:nth-child(even){
     background-color: rgba(120, 191, 255, 0.49);
 }
 
-#comment_table, #absence_table{
-    height: 30px;
-    width: 30px;
-    border-radius: 15px;
-    border:none;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-#comment_table{
-    background-image: url("../assets/add_comment_icon.png");
-}
-
-#absence_table{
-    background-image: url("../assets/abscence_icon.png");
-}
-
-
 #dropdown{
     text-align: center;
     user-focus: none;
-    width: 80%;
-    height: 30px;
+    width: 98%;
+    height: auto;
     -webkit-appearance: none;
     background-color: transparent;
     font-size: 18px;
     border-radius: 10px;
+    border: none;
+    overflow: auto;
+    white-space: normal;
 }
 
 #dropdown:focus {
@@ -474,3 +450,5 @@ tr:nth-child(even){
         transform: rotate(1800deg);
     }
 }
+
+

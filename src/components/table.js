@@ -9,29 +9,71 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
         // setShowTableOnMobile(false);
     };
 
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // Month is zero-based, so add 1
+    const current_date = new Date();
+    const current_year = current_date.getFullYear();
+    const current_month = current_date.getMonth() + 1; // Month is zero-based, so add 1
 
-    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+    const days_in_month = new Date(current_year, current_month, 0).getDate();
+
+    const year = current_date.getFullYear()
+    const month = current_date.getMonth()
 
 
+    const worksessions_by_day = {};
 
-    const days = [];
+    workSessions.forEach(session => {
+        const day = session.day;
+        if (!worksessions_by_day[day])
+            worksessions_by_day[day] = [];
 
-    const totalTimes = days.map((day) => day.total_time);
+        worksessions_by_day[day].push(session);
+    })
 
-    for (let day = 1; day <= daysInMonth; day++) {
-        const formattedDate = `${day < 10 ? '0' + day : day}.${currentMonth < 10 ? '0' + currentMonth : currentMonth}.${currentYear}`;
+    console.log("worksessionsbyday")
+    console.log(worksessions_by_day);
 
-        const dataForDate = {
-            date: formattedDate,
-            total_time: '00:00:00',
-        };
+    const renderDropdownOptions = (day) => {
+        if (worksessions_by_day[day])
+            return worksessions_by_day[day].map(session => `${session.clockIn} - ${session.clockOut}  total: ${session.duration}`);
+        else
+            return ["nothing for today"];
+    };
 
-        // Push the data object to the days array
-        days.push(dataForDate);
-    }
+    const calculateTotalDuration = (day) => {
+        if (worksessions_by_day[day]) {
+            const shiftData = worksessions_by_day[day];
+            if (shiftData.length > 0) {
+                const totalDuration = shiftData.reduce((acc, session) => {
+                    const [hours, minutes, seconds] = session.duration.split(':');
+
+                    return acc + (parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds));
+                }, 0);
+                const hours = Math.floor(totalDuration / 3600);
+                const minutes = Math.floor((totalDuration % 3600) / 60);
+                const seconds = totalDuration % 60;
+                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+        return "00:00:00";
+    };
+
+    const calculateTotalHours = () => {
+        let totalSeconds = 0;
+        Object.values(worksessions_by_day).forEach(shiftData => {
+            shiftData.forEach(session => {
+                const [hours, minutes, seconds] = session.duration.split(':');
+                totalSeconds += parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
+            });
+        });
+
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    const totalHours = calculateTotalHours();
 
     return (
         tableVisible && (
@@ -43,8 +85,8 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                         <thead>
                         <tr>
                             <th className="date">Date</th>
-                            <th className="times">Total Time</th>
-                            <th >Actions</th>
+                            <th className="times">Shifts</th>
+                            <th >Total</th>
                         </tr>
                         </thead>
                     </table>
@@ -52,24 +94,29 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                 <div id="table_div">
                     <table id="table">
                         <tbody>
-                        {days.map((item, index) => (
-                            <tr key={index}>
-                                <td className="date" >{item.date}</td>
-                                <td className="times"> <Dropdown options={totalTimes}/> </td>
-                                <td className="table_buttons" >
-                                    <button id="comment_table" ></button>
-                                    <button id="absence_table" ></button>
-                                </td>
-                            </tr>
-                        ))}
+                        {Array.from({ length: days_in_month}, (_, index) => index + 1).map(day => {
+                            const formattedDate = `${day.toString().padStart(2, '0')}.${month}.${year}`;
+                            return (
+                                <tr key={day}>
+                                    <td className="date">{formattedDate}</td>
+                                    <td className="times">
+                                        <Dropdown options={renderDropdownOptions(day)} />
+                                    </td>
+                                    <td className="table_buttons">
+                                        {calculateTotalDuration(day)}
+                                    </td>
+                                </tr>
+                            );
+                        })}
                         </tbody>
                     </table>
+                    <h4>
+                        Total for this month: {totalHours}
+                    </h4>
                 </div>
-
             </div>
         )
     );
 }
 
 export default Table;
-

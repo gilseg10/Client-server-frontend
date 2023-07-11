@@ -10,7 +10,6 @@ function Dropdown({ options }) {
 
     return (
         <select id="dropdown" value={selectedOption} onChange={handleOptionChange}>
-            <option value="">Nothing for today</option>
             {options.map((option) => (
                 <option key={option} value={option}>
                     {option}

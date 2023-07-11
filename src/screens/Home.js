@@ -263,26 +263,26 @@ function Home_screen(){
 
         let user_id = find_cookie("user_id=").split("=")[1];
         console.log(user_id)
-        // try {
-        //     const response = await fetch(`/api/home_screen/${user_id}`, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json'
-        //         },
-        //     });
-        //
-        //     const data = await response.json();
-        //     if (response.ok){
-        //         console.log(data)
-        //         // setWorkSessions()
-        //         setWorkSessions(data.workSessions)
-        //         // worksessions = data.workSessions
-        //     }
-        //     else
-        //         console.log(data.error);
-        // } catch (error) {
-        //     console.log('Error occurred:', error);
-        // }
+        try {
+            const response = await fetch(`/api/home_screen/${user_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok){
+                console.log(data)
+                // setWorkSessions()
+                setWorkSessions(data.workSessions)
+                // worksessions = data.workSessions
+            }
+            else
+                console.log(data.error);
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
     }
 
 
