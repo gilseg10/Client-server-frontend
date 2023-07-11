@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 
-function InputField(props) {
+function InputField({errorMessage, setErrorMessage, validate, type, onChange, placeholder}) {
     const [value, setValue] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    // const [errorMessage, setErrorMessage] = useState('');
 
     function validateInput(type, value) {
         let regex;
@@ -27,7 +27,7 @@ function InputField(props) {
                 if (value.length < 6) {
                     return 'Password needs 6+ characters';
                 }
-                if ( ! (value === props.validate))
+                if ( ! (value === validate))
                     return 'Mismatched passwords'
                 break;
 
@@ -55,11 +55,11 @@ function InputField(props) {
     function handleChange(event) {
         const updatedValue = event.target.value;
         setValue(updatedValue);
-        const error = validateInput(props.type, event.target.value);
+        const error = validateInput(type, event.target.value);
         setErrorMessage(error);
 
-        if (typeof props.onChange === 'function') {
-            props.onChange(updatedValue);
+        if (typeof onChange === 'function') {
+            onChange(updatedValue);
         }
     }
 
@@ -67,9 +67,9 @@ function InputField(props) {
         // maybe add an animation for the appearance and disappearance of the errorMessage message div below
         <div id="input_container">
             <input
-                type={props.type === 'password' ? 'password' : 'text'}
+                type={type === 'password' ? 'password' : 'text'}
                 value={value}
-                placeholder={props.placeholder}
+                placeholder={placeholder}
                 onChange={handleChange} />
             { errorMessage && <div id="errorMessage" >{errorMessage}</div> }
         </div>

@@ -58,6 +58,7 @@
 }
 
 
+
 .section p {
     user-select: none;
     margin-top: 0;
@@ -80,7 +81,7 @@
     outline: none;
     border: none;
     border-radius: 15px;
-    width: 27%;
+    width: 35%;
     height: 7.5%;
     margin-top: 35px;
     display: inline-block;

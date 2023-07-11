@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "../styles/Home_screen_style.css"
 import Dropdown from "./dropown";
 
-function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableOnMobile}) {
+function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableOnMobile, find_cookie, workSessions}) {
 
     const handleTableExit = () => {
         setTableVisible(false);
         // setShowTableOnMobile(false);
     };
-
 
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -16,7 +15,11 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
 
     const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
+
+
     const days = [];
+
+    const totalTimes = days.map((day) => day.total_time);
 
     for (let day = 1; day <= daysInMonth; day++) {
         const formattedDate = `${day < 10 ? '0' + day : day}.${currentMonth < 10 ? '0' + currentMonth : currentMonth}.${currentYear}`;
@@ -29,10 +32,6 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
         // Push the data object to the days array
         days.push(dataForDate);
     }
-
-
-    const totalTimes = days.map((day) => day.total_time);
-
 
     return (
         tableVisible && (

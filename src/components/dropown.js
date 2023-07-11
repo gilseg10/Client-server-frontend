@@ -7,9 +7,10 @@ function Dropdown({ options }) {
         setSelectedOption(event.target.value);
     };
 
+
     return (
         <select id="dropdown" value={selectedOption} onChange={handleOptionChange}>
-            <option value="">not selected</option>
+            <option value="">Nothing for today</option>
             {options.map((option) => (
                 <option key={option} value={option}>
                     {option}

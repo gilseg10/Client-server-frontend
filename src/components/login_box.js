@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import '../styles/Login_screen_style.css';
-import {json, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import TextBox from "./textBox";
 
 const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) => {
@@ -19,42 +19,63 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         return activeSection === section;
     };
 
-    const log_in = () => {
-        // ask the server if the user exists
-        // get the user from the database
-        set_session_cookie()
-        authenticate()
-        navigator("/home_screen")
-    }
+
+    const [username_error, setUsername_error] = useState('');
+    const [password_error, setPassword_error] = useState('');
+    const [confirm_password_error, setConfirm_password_error] = useState('');
+    const [email_error, setEmail_error] = useState('');
+
+
 
 
 
     const [username_login, setUsername] = useState('');
     const [password_login, setPassword] = useState('');
 
+
+
+    function handle_username_login_change(value) {
+        setUsername(value)
+    }
+    function handle_password_login_change(value) {
+        setPassword(value)
+    }
+
+    const log_in = () => {
+        // ask the server if the user exists
+        // get the user from the database
+        authenticate()
+    }
+
     const authenticate = async () => {
-        console.log("slog-in")
+        console.log("log-in")
         console.log("username: " + username_login)
         console.log("password: " + password_login)
         try {
-            const payload = { username_login: username_login, password_login: password_login };
-            const response = await fetch('/api/login', {
+            const payload = {password: password_login, email: username_login};
+            const response = await fetch('/api/user/login', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(payload),
             });
 
-
-            // TODO: save user key as cookie!!!!!
-            if (response.ok) {
-                // Authentication successful
+            if (response.status === 201){
                 const data = await response.json();
-                console.log(data); // Process the response data
-            } else {
-                // Authentication failed
-                console.log('Authentication failed');
-                console.log(response.json())
+                console.log(data); // display the response data
+                document.cookie = "user_id=" + data.user_id + "; path=/;";
+
+                navigator("/home_screen")
             }
-        } catch (error) {
+            else if (response.status === 400){
+                const data = await response.json();
+                console.log(data.error)
+            }
+            else {
+                console.log('Authentication failed');
+            }
+        }catch (error) {
             console.log('Error occurred:', error);
         }
     };
@@ -65,90 +86,13 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
     }
 
 
+
+
     const [username_sign_up, setUsername_sign_up] = useState('');
     const [password_sign_up, setPassword_sign_up] = useState('');
     const [password_sign_up_confirm, setPassword_sign_up_confirm] = useState('');
     const [email_sign_up, setEmail_sign_up] = useState('');
 
-    // add data check...
-    const sign_up = async () => {
-        console.log("sign-up")
-        console.log("username: " + username_sign_up)
-        console.log("password: " + password_sign_up)
-        console.log("confirm password: " + password_sign_up_confirm)
-        console.log("email: " + email_sign_up)
-        if( ! (password_sign_up === password_sign_up_confirm)){
-            console.log("passwords not matching...")
-            setShowPopup(true);
-            await sleep(3000);
-            setShowPopup(false);
-            return;
-        }
-
-        try {
-            // const payload = { whatTodo: "signup", username_login: username_login, password_login: password_login };
-
-            const payload = {username: username_sign_up, password: password_sign_up, passwordConfirm: password_sign_up_confirm, email: email_sign_up };
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                body: JSON.stringify(payload),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            if (response.ok) {
-                // Authentication successful
-                const data = await response.json();
-                console.log(data.error)
-                console.log(data); // Process the response data
-                // close in the end
-                handleSectionClick('section1')
-            } else {
-                // Authentication failed
-                console.log('Authentication failed');
-            }
-        } catch (error) {
-            console.log('Error occurred:', error);
-        }
-    };
-
-
-
-    const set_session_cookie = () => { document.cookie = 'Clock_sign_in_valid ; path=/'; }
-    const already_signed_in_this_session = () => {
-        var cookies = document.cookie.split(';');
-
-        // TODO: maybe add iterator loop if we will have time
-        for (var i = 0; i < cookies.length; i++) {
-            if (cookies[i].trim().startsWith("Clock_sign_in_valid"))
-                return true
-        }
-        return false;
-    }
-
-    useEffect(() => {
-        if (already_signed_in_this_session())
-            console.log("cookie good")
-            // navigator("/home_screen")
-    }, []);
-
-
-
-
-
-
-    const [email_forgot, setEmail_forgot] = useState('');
-    const [showPopup, setShowPopup] = useState(false);
-
-
-
-    function handle_username_login_change(value) {
-        setUsername(value)
-    }
-    function handle_password_login_change(value) {
-        setPassword(value)
-    }
     function handle_username_sign_up_Change(value) {
         setUsername_sign_up(value)
     }
@@ -169,32 +113,94 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         sign_up()
     }
 
+    // add data check...
+    const sign_up = async () => {
+        console.log("sign-up")
+        console.log("username: " + username_sign_up)
+        console.log("password: " + password_sign_up)
+        console.log("confirm password: " + password_sign_up_confirm)
+        console.log("email: " + email_sign_up)
+        if( ! (password_sign_up === password_sign_up_confirm))
+            return;
 
-    // const [forgot_modal_show, set_forgot_modal_show] = useState(false);
-    const forgot_modal_ref = useRef(null);
+        console.log(username_error)
+        console.log(password_error)
+        console.log(confirm_password_error)
+        console.log(email_error)
+        if ( username_error || password_error || confirm_password_error || email_error)
+            return;
+
+        try {
+            const payload = {username: username_sign_up, password: password_sign_up, email: email_sign_up };
+            const response = await fetch('/api/user/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
 
 
-
-    const open_forgot_Modal = () => {
-        set_forgot_modal_show(true);
-    };
-
-    const close_forgot_Modal = () => {
-        set_forgot_modal_show(false);
-    };
-    function handle_forgot_click(value) {
-
-
-        open_forgot_Modal()
-        // close in the end
-        handleSectionClick('section1')
-    }
-
-    const handle_click_outside_forgot_modal = (event) => {
-        if (forgot_modal_ref.current && !forgot_modal_ref.current.contains(event.target)) {
-            close_forgot_Modal();
+            if (response.ok){
+                // open the login tab in the end
+                handleSectionClick('section1')
+            }
+            else {
+                console.log("fuck...")
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
         }
     };
+
+
+
+
+    const [email_forgot, setEmail_forgot] = useState('');
+    const [email_sent, setEmail_sent] = useState('');
+
+    const handle_forgot_click = async () => {
+        if ( email_error )
+            return
+
+        try {
+            const payload = {email: email_forgot};
+            const response = await fetch('/api/user/forgot_password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                setEmail_sent("true")
+                handleSectionClick('section1')
+            } else {
+                // TODO: add return code check
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
+
+    const already_signed_in_this_session = () => {
+        var cookies = document.cookie.split(';');
+
+        // TODO: maybe add iterator loop if we will have time
+        for (var i = 0; i < cookies.length; i++) {
+            if (cookies[i].trim().startsWith("user_id="))
+                return true
+        }
+        return false;
+    }
+
+
+    useEffect(() => {
+        if (already_signed_in_this_session())
+            navigator("/home_screen")
+    }, []);
+
 
 
     return (
@@ -206,11 +212,11 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 <p>Login</p>
                     {isSectionActive('section1') && (
                         <>
-                            <a>Username</a>
-                            <TextBox type="username" placeholder="Username" onChange={handle_username_login_change} />
+                            <a>E-mail</a>
+                            <TextBox type="email" placeholder="E-mail" onChange={handle_username_login_change}  errorMessage={username_error} setErrorMessage={setUsername_error}/>
 
                             <a>Password</a>
-                            <TextBox type="password" placeholder="Password" onChange={handle_password_login_change} />
+                            <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                             <button onClick={log_in}>Login</button>
                             <div id="buttons">
                                 <div className="sign_with" id="google_login"/>
@@ -229,16 +235,14 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 {isSectionActive('section2') && (
                     <>
                         <a>Username</a>
-                        <TextBox type="username" placeholder="Username" onChange={handle_username_sign_up_Change} />
+                        <TextBox type="username" placeholder="Username" onChange={handle_username_sign_up_Change} errorMessage={username_error} setErrorMessage={setUsername_error}/>
                         <a>Password</a>
-                        <TextBox type="password" placeholder="Password" onChange={handle_password_sign_up_Change} validate={password_sign_up_confirm}/>
+                        <TextBox type="password" placeholder="Password" onChange={handle_password_sign_up_Change} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>Confirm password</a>
-                        <TextBox type="password" placeholder="Confirm password" onChange={handle_password_sign_up_confirm_Change} validate={password_sign_up}/>
+                        <TextBox type="password" placeholder="Confirm password" onChange={handle_password_sign_up_confirm_Change} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>E-mail</a>
-                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} />
+                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>
-                        <br/>
-                        <br/>
                     </>
                 )}
             </div>
@@ -251,8 +255,20 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 {isSectionActive('section3') && (
                     <>
                         <a>E-mail</a>
-                        <TextBox type="phone" placeholder="E-mail" onChange={handle_email_forgot_Change} />
+                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_forgot_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={() => handle_forgot_click()}>Reset my password</button>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        {email_sent && (
+                            <div>
+                                <p>A password recovery e-mail</p>
+                                <p>was sent to the provided address.</p>
+                            </div>
+
+                        )}
                     </>
                 )}
             </div>

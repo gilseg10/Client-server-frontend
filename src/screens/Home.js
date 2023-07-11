@@ -23,13 +23,13 @@ function Home_screen(){
     const comment_modal = useRef(null);
     const [commentModalOpen, setCommentModalOpen] = useState(false);
 
-    const [absenceModalOpen, setAbsenceModalOpen] = useState(false);
-    const absenceModalRef = useRef(null);
+    const [WorkingFromModalOpen, setWorkingFromModalOpen] = useState(false);
+    const WorkingFromModalRef = useRef(null);
 
     const [reportModalOpen, setreportModalOpen] = useState(false);
     const reportModalRef = useRef(null);
 
-
+    const [workSessions, setWorkSessions] = useState([]);
 
 
     const [comment, setComment] = useState("");
@@ -42,14 +42,25 @@ function Home_screen(){
         absence: "TODO"
     };
 
-    // TODO: also add logout cookie delete!!!!!!!!!!!!!!!!
     const log_out = () => {
-        document.cookie = `Clock_sign_in_valid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-
+        var cookie = find_cookie("user_id=")
+        document.cookie = cookie + "; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         navigator("/")
     }
 
 
+
+    function find_cookie(cookie_header){
+        var cookies = document.cookie.split(';');
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.startsWith(cookie_header)) {
+                return cookie
+            }
+        }
+        return ""
+    }
     const openModal = () => {
         setModalOpen(true);
     };
@@ -64,15 +75,16 @@ function Home_screen(){
     };
 
     const closeCommentModal = () => {
+        add_comment()
         setCommentModalOpen(false);
     };
 
-    const openAbsenceModal = () => {
-        setAbsenceModalOpen(true);
+    const openWorkinkFromModal = () => {
+        setWorkingFromModalOpen(true);
     };
 
-    const closeAbsenceModal = () => {
-        setAbsenceModalOpen(false);
+    const closeWorkingFromModal = () => {
+        setWorkingFromModalOpen(false);
     };
 
     const openReportModal = () => {
@@ -88,6 +100,7 @@ function Home_screen(){
     }
 
 
+
     useEffect(() => {
         const handleWindowResize = () => {
             if (window.innerWidth <= 1100) {
@@ -95,7 +108,6 @@ function Home_screen(){
                 setShowTableOnMobile(true);
                 console.log("mobile")
             } else {
-                // Desktop
                 setShowTableOnMobile(false);
                 console.log("desktop")
             }
@@ -130,8 +142,8 @@ function Home_screen(){
         };
 
         const handleClickOutsideAbsenceModal = (event) => {
-            if (absenceModalRef.current && !absenceModalRef.current.contains(event.target)) {
-                closeAbsenceModal();
+            if (WorkingFromModalRef.current && !WorkingFromModalRef.current.contains(event.target)) {
+                closeWorkingFromModal();
             }
         };
 
@@ -139,11 +151,12 @@ function Home_screen(){
             if (event.key === "Escape") {
                 closeModal();
                 closeCommentModal();
-                closeAbsenceModal();
+                closeWorkingFromModal();
                 // closeReportModal();
             }
         };
 
+        fetch_work_sessions()
 
         // document.addEventListener('mousedown', handleClickOutsideReportModal);
         // document.addEventListener('keydown', handleEscapeKey);
@@ -173,14 +186,104 @@ function Home_screen(){
         closeReportModal()
     }
 
-    const workAbsenceReasons = [
-        { reason: 'Sick Leave' },
-        { reason: 'Personal Leave' },
+    const workingFrom = [
+        { reason: 'office' },
+        { reason: 'home' },
         { reason: 'Vacation' },
     ];
 
-    const reason_list = workAbsenceReasons.map((reasons) => reasons.reason);
+    const reason_list = workingFrom.map((reasons) => reasons.reason);
 
+
+    const add_comment = async ()=> {
+        let session_id = find_cookie("session_id=").split("=")[1];
+
+        console.log(session_id)
+        if ( !session_id)
+            return
+
+        try {
+            const payload = {session_id: session_id, user_note: comment};
+            const response = await fetch(`/api/home_screen/${session_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+            if (response.ok){
+                console.log(data)
+            }
+            else {
+                console.log(data.error)
+                console.log("fuck...")
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
+
+
+
+    const add_work_from = async ()=> {
+
+        let session_id = find_cookie("session_id=").split("=")[1];
+
+        console.log(session_id)
+        if ( !session_id)
+            return
+
+        try {
+            const payload = {session_id: session_id, working_from: comment};
+            const response = await fetch(`/api/home_screen/${session_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+            if (response.ok){
+                console.log(data)
+            }
+            else {
+                console.log(data.error)
+                console.log("fuck...")
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
+
+
+    async function fetch_work_sessions() {
+
+        let user_id = find_cookie("user_id=").split("=")[1];
+        console.log(user_id)
+        // try {
+        //     const response = await fetch(`/api/home_screen/${user_id}`, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //     });
+        //
+        //     const data = await response.json();
+        //     if (response.ok){
+        //         console.log(data)
+        //         // setWorkSessions()
+        //         setWorkSessions(data.workSessions)
+        //         // worksessions = data.workSessions
+        //     }
+        //     else
+        //         console.log(data.error);
+        // } catch (error) {
+        //     console.log('Error occurred:', error);
+        // }
+    }
 
 
     return(
@@ -209,13 +312,13 @@ function Home_screen(){
                 </div>
             )}
 
-            {absenceModalOpen && (
+            {WorkingFromModalOpen && (
                 <div className="modal">
-                    <div className="modal-content" ref={absenceModalRef}>
+                    <div className="modal-content" ref={WorkingFromModalRef}>
                         {/*<div className="close" onClick={closeAbsenceModal}>&times;</div>*/}
                         <h2>Add absence reason</h2>
-                        <Dropdown options={reason_list}/>
-                        <button onClick={closeAbsenceModal}>apply</button>
+                        <Dropdown options={reason_list} find_cookie={find_cookie}/>
+                        <button onClick={closeWorkingFromModal}>apply</button>
                     </div>
                 </div>
             )}
@@ -256,8 +359,8 @@ function Home_screen(){
                             </div>
 
                             <div className="middle_buttons_inner">
-                                <button className="middle_buttons" id="absence" onClick={openAbsenceModal}></button>
-                                <div>Absence</div>
+                                <button className="middle_buttons" id="absence" onClick={openWorkinkFromModal}></button>
+                                <div>work from</div>
                             </div>
                         </div>
 
@@ -277,12 +380,12 @@ function Home_screen(){
 
                 {/* On mobile */}
                 {showTableOnMobile && (
-                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} showTableOnMobile={showTableOnMobile} setShowTableOnMobile={setShowTableOnMobile}/>
+                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} showTableOnMobile={showTableOnMobile} setShowTableOnMobile={setShowTableOnMobile} find_cookie={find_cookie} workSessions={workSessions}/>
                 )}
 
                 {/* On PC */}
                 {!showTableOnMobile && (
-                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} />
+                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} find_cookie={find_cookie} workSessions={workSessions}/>
                 )}
             </div>
         </div>
