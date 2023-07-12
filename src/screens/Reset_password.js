@@ -37,7 +37,7 @@ function Reset_homescreen(){
         console.log(token);
         try {
             const payload = {password: password};
-            const response = await fetch(`/api/user/reset_password/${token}`, {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/user/reset_password/${token}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

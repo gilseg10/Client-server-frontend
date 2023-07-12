@@ -178,7 +178,7 @@ function Home_screen(){
 
         let user_id = find_cookie("user_id=").split("=")[1];
         try {
-            const response = await fetch(`/api/home_screen/${user_id}?generatePdfReport=true`, {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${user_id}?generatePdfReport=true`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -218,7 +218,7 @@ function Home_screen(){
 
         try {
             const payload = {session_id: session_id, user_note: comment};
-            const response = await fetch(`/api/home_screen/${session_id}`, {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -245,7 +245,7 @@ function Home_screen(){
 
         try {
             const payload = {session_id: session_id, working_from: comment};
-            const response = await fetch(`/api/home_screen/${session_id}`, {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -266,7 +266,7 @@ function Home_screen(){
     async function fetch_work_sessions() {
         let user_id = find_cookie("user_id=").split("=")[1];
         try {
-            const response = await fetch(`/api/home_screen/${user_id}`, {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${user_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'

@@ -53,7 +53,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         console.log("password: " + password_login)
         try {
             const payload = {password: password_login, email: username_login};
-            const response = await fetch('/api/user/login', {
+            const response = await fetch('https://solid-clock-api.onrender.com/api/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -132,7 +132,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
 
         try {
             const payload = {username: username_sign_up, password: password_sign_up, email: email_sign_up };
-            const response = await fetch('/api/user/signup', {
+            const response = await fetch('https://solid-clock-api.onrender.com/api/user/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -166,7 +166,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         try {
             console.log(email_forgot)
             const payload = {email: email_forgot};
-            const response = await fetch('/api/user/forgot_password', {
+            const response = await fetch('https://solid-clock-api.onrender.com/api/user/forgot_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
