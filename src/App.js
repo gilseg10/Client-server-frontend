@@ -12,7 +12,6 @@ function App() {
                 <Route path="/" element={<Login/>}/>
                 <Route path="/home_screen" element={<Home_screen/>}/>
                 <Route path="/reset_password" element={<Reset_password/>}/>
-
             </Routes>
         </Router>
     );

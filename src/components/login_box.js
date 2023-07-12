@@ -203,7 +203,6 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
     }, []);
 
 
-
     return (
         <div className="main_box" id="login_main">
             <div

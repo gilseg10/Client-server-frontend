@@ -61,7 +61,6 @@ function Reset_homescreen(){
     };
 
 
-
     return(
         <div className="background">
             <h1 id="header_home">
