@@ -385,9 +385,6 @@ function Home_screen(){
                     <Table tableVisible={tableVisible} setTableVisible={setTableVisible} find_cookie={find_cookie} workSessions={workSessions}/>
                 )}
             </div>
-            <div className="bottom-bar">
-                <p id="bottom-text">this site uses cookies to store your super secret data, you dont really have a choice so there is no option to turn it off...</p>
-            </div>
         </div>
     );
 
