@@ -39,10 +39,10 @@ button{
     }
 
     .date{
-        width: 8%;
+        width: 14%;
     }
     .times{
-        width: 80%;
+        width: 75%;
         padding: 10px;
     }
 
@@ -93,6 +93,17 @@ button{
     .modal-content {
         width: 70%;
     }
+
+    #header_home {
+        position: absolute;
+        top: 40px;
+        left: 5%;
+        justify-content: center;
+        z-index: 1;
+        font-weight: 900;
+        font-size: 22px;
+        overflow: auto;
+    }
 }
 
 
@@ -106,8 +117,8 @@ button{
     position: absolute;
     top: 0;
 
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -129,7 +140,7 @@ button{
 
 .middle_buttons_div{
     display: flex;
-    gap: 120px;
+    gap: 140px;
 }
 
 .middle_buttons_inner{
@@ -207,7 +218,7 @@ textarea:focus{
 .bottom_buttons_div{
     margin-top: 100px;
     display: flex;
-    gap: 30px;
+    gap: 60px;
 }
 .bottom_buttons_div_inner{
     display: flex;
@@ -276,11 +287,12 @@ textarea:focus{
 
 .time_labels_div{
     position: relative;
+    justify-content: center;
 }
 .time_labels{
     position: absolute;
     transition: all 0.5s;
-    width: 100px;
+    width: 130px;
 
     font-size: 20px;
     font-weight: 800;
@@ -302,7 +314,7 @@ textarea:focus{
 .container {
     display: flex;
     flex-direction: row;
-    gap: 50px;
+    gap: 70px;
 }
 
 .attendance_table {

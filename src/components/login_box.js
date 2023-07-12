@@ -65,7 +65,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 const data = await response.json();
                 console.log(data); // display the response data
                 document.cookie = "user_id=" + data.user_id + "; path=/;";
-
+                document.cookie = "user_name=" + data.username + "; path=/;";
                 navigator("/home_screen")
             }
             else if (response.status === 400){
@@ -164,6 +164,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
             return
 
         try {
+            console.log(email_forgot)
             const payload = {email: email_forgot};
             const response = await fetch('/api/user/forgot_password', {
                 method: 'POST',
@@ -218,10 +219,10 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                             <a>Password</a>
                             <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                             <button onClick={log_in}>Login</button>
-                            <div id="buttons">
-                                <div className="sign_with" id="google_login"/>
-                                <div className="sign_with" id="apple_login"/>
-                            </div>
+                            {/*<div id="buttons">*/}
+                            {/*    <div className="sign_with" id="google_login"/>*/}
+                            {/*    <div className="sign_with" id="apple_login"/>*/}
+                            {/*</div>*/}
                         </>
                     )}
             </div>
@@ -234,12 +235,12 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 <p>sign-up</p>
                 {isSectionActive('section2') && (
                     <>
-                        <a>Username</a>
-                        <TextBox type="username" placeholder="Username" onChange={handle_username_sign_up_Change} errorMessage={username_error} setErrorMessage={setUsername_error}/>
+                        <a>Your name</a>
+                        <TextBox type="username" placeholder="What is your name?" onChange={handle_username_sign_up_Change} errorMessage={username_error} setErrorMessage={setUsername_error}/>
                         <a>Password</a>
-                        <TextBox type="password" placeholder="Password" onChange={handle_password_sign_up_Change} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_Change} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>Confirm password</a>
-                        <TextBox type="password" placeholder="Confirm password" onChange={handle_password_sign_up_confirm_Change} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_confirm_Change} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>E-mail</a>
                         <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>

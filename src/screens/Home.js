@@ -99,18 +99,12 @@ function Home_screen(){
         return new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-
-
     useEffect(() => {
         const handleWindowResize = () => {
-            if (window.innerWidth <= 1100) {
-                // Mobile
+            if (window.innerWidth <= 1024)
                 setShowTableOnMobile(true);
-                console.log("mobile")
-            } else {
+            else
                 setShowTableOnMobile(false);
-                console.log("desktop")
-            }
         };
 
         window.addEventListener('resize', handleWindowResize);
@@ -124,27 +118,24 @@ function Home_screen(){
 
     useEffect(() => {
         const handleClickOutsideModal = (event) => {
-            if (settings_modal.current && !settings_modal.current.contains(event.target)) {
+            if (settings_modal.current && !settings_modal.current.contains(event.target))
                 closeModal();
-            }
+
         };
 
         const handleClickOutsideCommentModal = (event) => {
-            if (comment_modal.current && !comment_modal.current.contains(event.target)) {
+            if (comment_modal.current && !comment_modal.current.contains(event.target))
                 closeCommentModal();
-            }
         };
 
         const handleClickOutsideReportModal = (event) => {
-            if (reportModalRef.current && !reportModalRef.current.contains(event.target)) {
+            if (reportModalRef.current && !reportModalRef.current.contains(event.target))
                 closeReportModal();
-            }
         };
 
         const handleClickOutsideAbsenceModal = (event) => {
-            if (WorkingFromModalRef.current && !WorkingFromModalRef.current.contains(event.target)) {
+            if (WorkingFromModalRef.current && !WorkingFromModalRef.current.contains(event.target))
                 closeWorkingFromModal();
-            }
         };
 
         const handleEscapeKey = (event) => {
@@ -180,9 +171,33 @@ function Home_screen(){
     }, []);
 
 
+    const currentDate = new Date();
+    const yearMonth = currentDate.toISOString().slice(0, 7);
     async function generate_report(){
         openReportModal()
-        await sleep(3000);
+
+        let user_id = find_cookie("user_id=").split("=")[1];
+        try {
+            const response = await fetch(`/api/home_screen/${user_id}?generatePdfReport=true`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+            const data = await response.blob();
+            if (response.ok){
+                const url = URL.createObjectURL(data);
+                const link = document.createElement('a');
+                link.href = url;
+                link.target = '_blank';
+                link.download = `${yearMonth}-report.pdf`; // Set the desired file name here
+                link.click();
+            }
+            else
+                console.log(data.error);
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
         closeReportModal()
     }
 
@@ -198,7 +213,6 @@ function Home_screen(){
     const add_comment = async ()=> {
         let session_id = find_cookie("session_id=").split("=")[1];
 
-        console.log(session_id)
         if ( !session_id)
             return
 
@@ -213,25 +227,19 @@ function Home_screen(){
             });
 
             const data = await response.json();
-            if (response.ok){
+            if (response.ok)
                 console.log(data)
-            }
-            else {
+            else
                 console.log(data.error)
-                console.log("fuck...")
-            }
         } catch (error) {
             console.log('Error occurred:', error);
         }
     }
 
 
-
     const add_work_from = async ()=> {
-
         let session_id = find_cookie("session_id=").split("=")[1];
 
-        console.log(session_id)
         if ( !session_id)
             return
 
@@ -246,23 +254,17 @@ function Home_screen(){
             });
 
             const data = await response.json();
-            if (response.ok){
+            if (response.ok)
                 console.log(data)
-            }
-            else {
+            else
                 console.log(data.error)
-                console.log("fuck...")
-            }
         } catch (error) {
             console.log('Error occurred:', error);
         }
     }
 
-
     async function fetch_work_sessions() {
-
         let user_id = find_cookie("user_id=").split("=")[1];
-        console.log(user_id)
         try {
             const response = await fetch(`/api/home_screen/${user_id}`, {
                 method: 'GET',
@@ -272,12 +274,8 @@ function Home_screen(){
             });
 
             const data = await response.json();
-            if (response.ok){
-                console.log(data)
-                // setWorkSessions()
-                setWorkSessions(data.workSessions)
-                // worksessions = data.workSessions
-            }
+            if (response.ok)
+                setWorkSessions(data.workSessions);
             else
                 console.log(data.error);
         } catch (error) {
@@ -288,9 +286,8 @@ function Home_screen(){
 
     return(
         <div className="background">
-
-            {((showTableOnMobile && !tableVisible) || (!showTableOnMobile)) && ( <h1 id="header">
-                Welcome back $$name$$
+            {((showTableOnMobile && !tableVisible) || (!showTableOnMobile)) && ( <h1 id="header_home">
+                Welcome back {find_cookie("user_name=").split("=")[1]}
             </h1>)}
 
             {modalOpen && (
@@ -337,7 +334,7 @@ function Home_screen(){
                 {((showTableOnMobile && !tableVisible) || (!showTableOnMobile)) && (
                     <div className="main_box" id="home_main_box">
                         <button className="util" id="log_out" onClick={log_out}></button>
-                        <button className="util" id="settings" onClick={openModal}></button>
+                        {/*<button className="util" id="settings" onClick={openModal}></button>*/}
 
                         <div className="time_labels_div">
                             { start_time && <a id="start_time" className="time_labels" >{start_time}  </a> }
@@ -387,6 +384,9 @@ function Home_screen(){
                 {!showTableOnMobile && (
                     <Table tableVisible={tableVisible} setTableVisible={setTableVisible} find_cookie={find_cookie} workSessions={workSessions}/>
                 )}
+            </div>
+            <div className="bottom-bar">
+                <p id="bottom-text">this site uses cookies to store your super secret data, you dont really have a choice so there is no option to turn it off...</p>
             </div>
         </div>
     );

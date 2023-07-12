@@ -31,6 +31,12 @@ function InputField({errorMessage, setErrorMessage, validate, type, onChange, pl
                     return 'Mismatched passwords'
                 break;
 
+            case 'password_login':
+                if (value.length < 6) {
+                    return 'Password needs 6+ characters';
+                }
+                break;
+
             // check for a valid email address using regex for a basic email structure
             case 'email':
                 regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -67,7 +73,7 @@ function InputField({errorMessage, setErrorMessage, validate, type, onChange, pl
         // maybe add an animation for the appearance and disappearance of the errorMessage message div below
         <div id="input_container">
             <input
-                type={type === 'password' ? 'password' : 'text'}
+                type={type === 'password' || type === 'password_login' ? 'password' : 'text'}
                 value={value}
                 placeholder={placeholder}
                 onChange={handleChange} />

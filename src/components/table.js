@@ -21,16 +21,16 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
 
     const worksessions_by_day = {};
 
+    let session_id = find_cookie("session_id=").split("=")[1];
+
     workSessions.forEach(session => {
         const day = session.day;
         if (!worksessions_by_day[day])
             worksessions_by_day[day] = [];
 
-        worksessions_by_day[day].push(session);
+        if ( !(session_id === session._id))
+            worksessions_by_day[day].push(session);
     })
-
-    console.log("worksessionsbyday")
-    console.log(worksessions_by_day);
 
     const renderDropdownOptions = (day) => {
         if (worksessions_by_day[day])

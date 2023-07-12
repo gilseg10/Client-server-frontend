@@ -8,7 +8,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
     const [circle_radius, set_circle_radius] = useState(145); // less than the center points because of the stroke
     const [circle_circumference, set_circle_circumference] = useState(circle_radius * 2 * Math.PI);
-    const [timer_interval, set_timer_interval] = useState( circle_circumference / (12 * 60 * 60));
+    // const [timer_interval, set_timer_interval] = useState( circle_circumference / (12 * 60 * 60));
     const secondsInTwelveHours = 12 * 60 * 60; // Total number of seconds in 12 hours
 
 
@@ -88,7 +88,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
             const data = await response.json();
             if (response.ok){
-                console.log(data)
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 console.log(data.workSession._id)
@@ -138,7 +137,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         let user_id = find_cookie("user_id=").split("=")[1];
         let session_id = find_cookie("session_id=").split("=")[1];
         let clock_out = hours + ":" + minutes + ":" + seconds;
-        console.log(find_cookie("start_time=").split("=")[1]);
         let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
         remove_cookie("start_time=");
         try {
@@ -162,35 +160,70 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         window.location.reload();
     }
 
+
+    const fetch_active_work_session = async ()=> {
+        let user_id = find_cookie("user_id=").split("=")[1];
+
+        try {
+            const payload = {user_id: user_id, clockOut: user_id,};
+            const response = await fetch(`/api/home_screen/not_closed/${user_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok){
+                document.cookie = "session_id=" + data.workSession._id + "; path=/;";
+                document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
+            }
+            else {
+                console.log(data.error)
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
+
     useEffect(() => {
-        // console.log(offset_from_start);
-        const start_time = find_cookie("start_time=")
-        if (!start_time)
-            return
-        set_timer_state(true);
-        set_center_label("Stop")
-        set_start_time("Clock-in " + start_time.split("=")[1]);
+        const fetchWorkSession = async () => {
+            try {
+                await fetch_active_work_session();
 
-        const newTimeFill = setInterval(() => {
+                const start_time = find_cookie("start_time=");
+                if (!start_time) return;
+                set_timer_state(true);
+                set_center_label("Stop");
+                set_start_time("Clock-in " + start_time.split("=")[1]);
 
-            let time = new Date()
-            let hours = time.getHours()
-            let minutes = time.getMinutes()
-            let seconds = time.getSeconds()
+                const newTimeFill = setInterval(() => {
 
-            if (hours < 10)
-                hours = "0" + hours;
-            if (minutes < 10)
-                minutes = "0" + minutes;
-            if (seconds < 10)
-                seconds = "0" + seconds;
+                    let time = new Date()
+                    let hours = time.getHours()
+                    let minutes = time.getMinutes()
+                    let seconds = time.getSeconds()
 
-            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
-            setElapsedTime(secondsPassed)
-            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
-            // set_circle_offset(secondsPassed)
-        }, 1000);
+                    if (hours < 10)
+                        hours = "0" + hours;
+                    if (minutes < 10)
+                        minutes = "0" + minutes;
+                    if (seconds < 10)
+                        seconds = "0" + seconds;
+
+                    const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
+                    setElapsedTime(secondsPassed)
+                    set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
+                }, 1000);
+            } catch (error) {
+                // Handle the error
+            }
+        };
+        fetchWorkSession();
     }, []);
+
+
+
 
 
 
