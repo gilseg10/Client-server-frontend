@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import "../styles/Home_screen_style.css"
 
 function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_start, set_circle_offset}) {
@@ -10,6 +11,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     const [circle_circumference, set_circle_circumference] = useState(circle_radius * 2 * Math.PI);
     // const [timer_interval, set_timer_interval] = useState( circle_circumference / (12 * 60 * 60));
     const secondsInTwelveHours = 12 * 60 * 60; // Total number of seconds in 12 hours
+    const navigator = useNavigate ();
 
 
     // set the svg property states
@@ -149,14 +151,16 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             });
 
             const data = await response.json();
-            if (response.ok)
+            if (response.ok){
                 console.log(data)
+                navigator("/home_screen")
+            }
+
             else
                 console.log(data.error)
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        navigator("/home_screen")
     }
 
 
@@ -164,7 +168,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         let user_id = find_cookie("user_id=").split("=")[1];
 
         try {
-            const payload = {user_id: user_id, clockOut: user_id,};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/not_closed/${user_id}`, {
                 method: 'GET',
                 headers: {
