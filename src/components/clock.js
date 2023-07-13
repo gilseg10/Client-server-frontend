@@ -101,7 +101,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        // window.location.reload();
     }
 
 
@@ -130,7 +129,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
         set_center_label("Start")
 
-        clearInterval(timeFill);
         set_time_fill(null);
         set_circle_offset(0);
         setElapsedTime(0);
@@ -158,12 +156,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
-
         set_timer_state(false);
-        clearInterval(timeFill);
-        set_time_fill(null);
-        set_circle_offset(0);
-        setElapsedTime(0);
     }
 
 
@@ -191,16 +184,21 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         }
     }
 
-
-
-
     const startTimerInterval = () => {
         const start_time = find_cookie("start_time=");
         set_timer_state(true);
         set_center_label("Stop");
         set_start_time("Clock-in " + start_time.split("=")[1]);
 
+
         const newTimeFill = setInterval(() => {
+            if (timer_started){
+                clearInterval(newTimeFill);
+                set_timer_state(false);
+                set_time_fill(null);
+                set_circle_offset(0);
+                setElapsedTime(0);
+            }
 
             let time = new Date()
             let hours = time.getHours()
