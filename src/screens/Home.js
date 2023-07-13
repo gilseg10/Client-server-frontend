@@ -202,6 +202,7 @@ function Home_screen(){
     }
 
     const workingFrom = [
+        { reason: 'not set' },
         { reason: 'office' },
         { reason: 'home' },
         { reason: 'Vacation' },
