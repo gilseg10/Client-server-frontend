@@ -34,7 +34,7 @@
     #header_login {
         position: absolute;
         top: 10px;
-        left: 5%;
+        left: 9%;
         justify-content: center;
         z-index: 1;
         font-weight: 900;
@@ -57,17 +57,15 @@
 
 .section.active {
     transition: height 0.5s ease-in-out;
-    height: 80%;
+    height: 70%;
     flex-grow: 1;
     cursor: auto;
 }
 
 .section:not(.active) {
     transition: height 0.5s ease-in-out;
-    height: 7%;
+    height: 5%;
 }
-
-
 
 .section p {
     user-select: none;
