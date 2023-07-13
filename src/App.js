@@ -1,25 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from "./screens/Login";
 import Home_screen from "./screens/Home";
 import Reset_password from "./screens/Reset_password";
-import { HashRouter } from 'react-router-dom'
 
 function App() {
-    return(
-        // check which screen I need
+    return (
         <Router>
-            <Routes>
-                <Route path="/" element={<Login/>}/>
-                <Route path="/home_screen" element={<Home_screen/>}/>
-                <Route path="/reset_password" element={<Reset_password/>}/>
-            </Routes>
+            <Switch>
+                <Route exact path="/" component={Login} />
+                <Route path="/home_screen" component={Home_screen} />
+                <Route path="/reset_password" component={Reset_password} />
+            </Switch>
         </Router>
     );
 }
 
 export default App;
-
 
 
 
