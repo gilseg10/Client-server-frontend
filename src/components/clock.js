@@ -192,7 +192,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
 
         const newTimeFill = setInterval(() => {
-            if (timer_started){
+            if ( !timer_started){
                 clearInterval(newTimeFill);
                 set_timer_state(false);
                 set_time_fill(null);
