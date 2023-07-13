@@ -57,14 +57,14 @@
 
 .section.active {
     transition: height 0.5s ease-in-out;
-    height: 60%;
+    height: 75%;
     flex-grow: 1;
     cursor: auto;
 }
 
 .section:not(.active) {
     transition: height 0.5s ease-in-out;
-    height: 14%;
+    height: 7%;
 }
 
 .section p {
