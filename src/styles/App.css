@@ -48,7 +48,7 @@
     }
 
     .background{
-        background-image: url("../assets/background_test.png");
+        background-image: url("../assets/mobile_background.png");
         background-size: cover;
         background-repeat: no-repeat;
         display: flex;
