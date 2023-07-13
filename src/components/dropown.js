@@ -1,12 +1,42 @@
 import React, { useState } from 'react';
 
-function Dropdown({ options }) {
+function Dropdown({ options, selected, find_cookie, selection }) {
     const [selectedOption, setSelectedOption] = useState('');
 
+    selected = selectedOption
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
+        add_work_from()
     };
 
+
+    const add_work_from = async ()=> {
+        let session_id = find_cookie("session_id=").split("=")[1];
+
+        if ( !session_id)
+            return
+
+        if (selection === "user")
+
+        try {
+            const payload = {session_id: session_id, working_from: selection};
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json();
+            if (response.ok)
+                console.log(data)
+            else
+                console.log(data.error)
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
 
     return (
         <select id="dropdown" value={selectedOption} onChange={handleOptionChange}>

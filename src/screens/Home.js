@@ -236,33 +236,6 @@ function Home_screen(){
         }
     }
 
-
-    const add_work_from = async ()=> {
-        let session_id = find_cookie("session_id=").split("=")[1];
-
-        if ( !session_id)
-            return
-
-        try {
-            const payload = {session_id: session_id, working_from: comment};
-            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload),
-            });
-
-            const data = await response.json();
-            if (response.ok)
-                console.log(data)
-            else
-                console.log(data.error)
-        } catch (error) {
-            console.log('Error occurred:', error);
-        }
-    }
-
     async function fetch_work_sessions() {
         let user_id = find_cookie("user_id=").split("=")[1];
         try {
@@ -314,7 +287,7 @@ function Home_screen(){
                     <div className="modal-content" ref={WorkingFromModalRef}>
                         {/*<div className="close" onClick={closeAbsenceModal}>&times;</div>*/}
                         <h2>Add absence reason</h2>
-                        <Dropdown options={reason_list} find_cookie={find_cookie}/>
+                        <Dropdown options={reason_list} find_cookie={find_cookie} selection="user"/>
                         <button onClick={closeWorkingFromModal}>apply</button>
                     </div>
                 </div>
