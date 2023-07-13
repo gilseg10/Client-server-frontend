@@ -54,25 +54,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     const start_timer = async () => {
-        const newTimeFill = setInterval(() => {
-
-            let time = new Date()
-            let hours = time.getHours()
-            let minutes = time.getMinutes()
-            let seconds = time.getSeconds()
-
-            if (hours < 10)
-                hours = "0" + hours;
-            if (minutes < 10)
-                minutes = "0" + minutes;
-            if (seconds < 10)
-                seconds = "0" + seconds;
-
-            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
-            setElapsedTime(secondsPassed)
-            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
-        }, 1000);
-
         set_timer_state(true);
         set_center_label("Stop")
         let time = new Date()
@@ -121,14 +102,14 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        navigator("/home_screen")
+        // window.location.reload();
     }
+
+
 
 
     const stop_timer = async () => {
         set_timer_state(false);
-
-
         let time = new Date();
         let hours = time.getHours()
         let minutes = time.getMinutes()
@@ -171,17 +152,14 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             });
 
             const data = await response.json();
-            if (response.ok){
+            if (response.ok)
                 console.log(data)
-                navigator("/home_screen")
-            }
-
             else
                 console.log(data.error)
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        navigator("/home_screen")
+        window.location.reload();
     }
 
 
@@ -189,40 +167,38 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         const fetchWorkSession = async () => {
             try {
                 await fetch_active_work_session();
+
+                const start_time = find_cookie("start_time=");
+                if (!start_time) return;
+                set_timer_state(true);
+                set_center_label("Stop");
+                set_start_time("Clock-in " + start_time.split("=")[1]);
+
+                const newTimeFill = setInterval(() => {
+
+                    let time = new Date()
+                    let hours = time.getHours()
+                    let minutes = time.getMinutes()
+                    let seconds = time.getSeconds()
+
+                    if (hours < 10)
+                        hours = "0" + hours;
+                    if (minutes < 10)
+                        minutes = "0" + minutes;
+                    if (seconds < 10)
+                        seconds = "0" + seconds;
+
+                    const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
+                    setElapsedTime(secondsPassed)
+                    set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
+                }, 1000);
             } catch (error) {
                 // Handle the error
             }
         };
-
         fetchWorkSession();
-
-        const start_time = find_cookie("start_time=");
-        if (!start_time)
-            return;
-        set_timer_state(true);
-        set_center_label("Stop");
-        set_start_time("Clock-in " + start_time.split("=")[1]);
-
-        const newTimeFill = setInterval(() => {
-
-            let time = new Date()
-            let hours = time.getHours()
-            let minutes = time.getMinutes()
-            let seconds = time.getSeconds()
-
-            if (hours < 10)
-                hours = "0" + hours;
-            if (minutes < 10)
-                minutes = "0" + minutes;
-            if (seconds < 10)
-                seconds = "0" + seconds;
-
-            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
-            setElapsedTime(secondsPassed)
-            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
-        }, 1000);
-        return () => clearInterval(newTimeFill);
     }, []);
+
 
     const fetch_active_work_session = async ()=> {
         let user_id = find_cookie("user_id=").split("=")[1];

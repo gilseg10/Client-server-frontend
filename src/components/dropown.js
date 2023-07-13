@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 function Dropdown({ options, selected, find_cookie, selection }) {
     const [selectedOption, setSelectedOption] = useState('');
 
-    selected = selectedOption
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
         add_work_from()
@@ -16,10 +15,11 @@ function Dropdown({ options, selected, find_cookie, selection }) {
         if ( !session_id)
             return
 
-        if (selection === "user")
+        if ( !(selection === "user"))
+            return
 
         try {
-            const payload = {session_id: session_id, working_from: selection};
+            const payload = {session_id: session_id, working_from: selectedOption};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
                 method: 'PATCH',
                 headers: {
