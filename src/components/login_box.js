@@ -61,7 +61,6 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 body: JSON.stringify(payload),
             });
             console.log(response)
-            console.log(response.text())
 
             const data = await response.json();
             if (response.status === 201){
