@@ -23,6 +23,7 @@ function Dropdown({ options, selected, find_cookie, selection }) {
         if ( !is_active_session)
             return
 
+
         try {
             const payload = {session_id: session_id, working_from: selectedOption};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
