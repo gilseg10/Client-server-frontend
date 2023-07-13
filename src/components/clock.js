@@ -102,7 +102,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        // window.location.reload();
+        window.location.reload();
     }
 
 
