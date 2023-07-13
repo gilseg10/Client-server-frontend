@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 
 function Dropdown({ options, selected, find_cookie, selection }) {
     const [selectedOption, setSelectedOption] = useState('');
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
-        add_work_from()
     };
 
 
@@ -45,6 +44,11 @@ function Dropdown({ options, selected, find_cookie, selection }) {
             console.log('Error occurred:', error);
         }
     }
+
+    useEffect(() => {
+        add_work_from();
+    }, [selectedOption]);
+
 
     return (
         <select id="dropdown" value={selectedOption} onChange={handleOptionChange}>
