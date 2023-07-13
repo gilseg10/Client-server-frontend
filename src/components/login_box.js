@@ -158,6 +158,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
 
     const [email_forgot, setEmail_forgot] = useState('');
     const [email_sent, setEmail_sent] = useState('');
+    const [error_sending, setError_sending] = useState('');
 
     const handle_forgot_click = async () => {
         if ( email_error )
@@ -173,15 +174,15 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 },
                 body: JSON.stringify(payload),
             });
-
+            const data = response.json()
             if (response.ok) {
                 setEmail_sent("true")
                 handleSectionClick('section1')
             } else {
-                // TODO: add return code check
+                setError_sending(data.error)
             }
         } catch (error) {
-            console.log('Error occurred:', error);
+            setError_sending("Recovery Email failed, try again later")
         }
     }
 
@@ -201,6 +202,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         if (already_signed_in_this_session())
             navigator("/home_screen")
     }, []);
+
 
 
     return (
@@ -261,13 +263,16 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                         <br/>
                         <br/>
                         <br/>
-
+                        {error_sending && (
+                            <div>
+                                <p>{error_sending}</p>
+                            </div>
+                        )}
                         {email_sent && (
                             <div>
                                 <p>A password recovery e-mail</p>
                                 <p>was sent to the provided address.</p>
                             </div>
-
                         )}
                     </>
                 )}
