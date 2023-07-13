@@ -91,6 +91,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 console.log(data.workSession._id)
+                startTimerInterval();
 
             }
             else {
@@ -100,7 +101,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
-        startTimerInterval();
         // window.location.reload();
     }
 
@@ -196,6 +196,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
 
     const startTimerInterval = () => {
+        const start_time = find_cookie("start_time=");
         set_timer_state(true);
         set_center_label("Stop");
         set_start_time("Clock-in " + start_time.split("=")[1]);
