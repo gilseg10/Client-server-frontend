@@ -47,6 +47,7 @@
         backdrop-filter: blur(10px);
     }
 
+
     .background{
         background-image: url("../assets/mobile_background.png");
         background-size: cover;
