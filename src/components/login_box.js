@@ -53,28 +53,24 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         console.log("password: " + password_login)
         try {
             const payload = {password: password_login, email: username_login};
-            const response = await fetch('https://solid-clock-api.onrender.com/api/user/login', {
+            const response = await fetch('https://solid-clock.onrender.com/api/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload),
             });
-
+            const data = await response.json();
             if (response.status === 201){
-                const data = await response.json();
                 console.log(data); // display the response data
                 document.cookie = "user_id=" + data.user_id + "; path=/;";
                 document.cookie = "user_name=" + data.username + "; path=/;";
                 navigator("/home_screen")
             }
-            else if (response.status === 400){
-                const data = await response.json();
+            else {
                 console.log(data.error)
             }
-            else {
-                console.log('Authentication failed');
-            }
+
         }catch (error) {
             console.log('Error occurred:', error);
         }

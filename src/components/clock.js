@@ -78,7 +78,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         let user_id = find_cookie("user_id=").split("=")[1];
         try {
             const payload = {user_id: user_id, clockIn: hours + ":" + minutes + ":" + seconds, yearMonth: year + "-" + month, day: day};
-            const response = await fetch('https://solid-clock-api.onrender.com/api/home_screen/', {
+            const response = await fetch('https://solid-clock.onrender.com/api/home_screen/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,6 +88,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
             const data = await response.json();
             if (response.ok){
+                console.log(data)
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 console.log(data.workSession._id)
@@ -139,7 +140,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         remove_cookie("start_time=");
         try {
             const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
-            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
+            const response = await fetch(`https://solid-clock.onrender.com/api/home_screen/${session_id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
@@ -163,7 +164,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         let user_id = find_cookie("user_id=").split("=")[1];
 
         try {
-            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/not_closed/${user_id}`, {
+            const response = await fetch(`https://solid-clock.onrender.com/api/home_screen/not_closed/${user_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -172,6 +173,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
             const data = await response.json();
             if (response.ok){
+                console.log(data)
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
             }
@@ -196,6 +198,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 set_time_fill(null);
                 set_circle_offset(0);
                 setElapsedTime(0);
+                console.log("should be stopped")
             }
 
             let time = new Date()
@@ -222,6 +225,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             const start_time = find_cookie("start_time=");
             if (!start_time) return;
             startTimerInterval()
+            console.log("try start on load")
         } catch (error) {
             // Handle the error
         }
