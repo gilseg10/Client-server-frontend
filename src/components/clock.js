@@ -92,7 +92,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 console.log(data.workSession._id)
                 startTimerInterval();
-
             }
             else {
                 console.log(data.error)
@@ -190,7 +189,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         set_center_label("Stop");
         set_start_time("Clock-in " + start_time.split("=")[1]);
 
-
         const newTimeFill = setInterval(() => {
             if ( !timer_started){
                 clearInterval(newTimeFill);
@@ -218,22 +216,33 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         }, 1000);
     };
 
+    const fetchWorkSession = async () => {
+        try {
+            await fetch_active_work_session();
+            const start_time = find_cookie("start_time=");
+            if (!start_time) return;
+            startTimerInterval()
+        } catch (error) {
+            // Handle the error
+        }
+    };
+    fetchWorkSession();
 
-
-    useEffect(() => {
-        const fetchWorkSession = async () => {
-            try {
-                await fetch_active_work_session();
-                const start_time = find_cookie("start_time=");
-                if (!start_time) return;
-                startTimerInterval()
-
-            } catch (error) {
-                // Handle the error
-            }
-        };
-        fetchWorkSession();
-    }, []);
+    //
+    // useEffect(() => {
+    //     const fetchWorkSession = async () => {
+    //         try {
+    //             await fetch_active_work_session();
+    //             const start_time = find_cookie("start_time=");
+    //             if (!start_time) return;
+    //             startTimerInterval()
+    //
+    //         } catch (error) {
+    //             // Handle the error
+    //         }
+    //     };
+    //     fetchWorkSession();
+    // }, []);
 
 
 
