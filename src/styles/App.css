@@ -38,7 +38,6 @@
     .main_box {
         width: 100vw;
         height: 100vh;
-        position: fixed;
         /*height: 97.6vh;*/
         display: flex;
         margin: 0 auto;
