@@ -54,7 +54,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     const start_timer = async () => {
-
         const newTimeFill = setInterval(() => {
 
             let time = new Date()
@@ -73,8 +72,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             setElapsedTime(secondsPassed)
             set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
         }, 1000);
-        return () => clearInterval(newTimeFill);
-
 
         set_timer_state(true);
         set_center_label("Stop")
