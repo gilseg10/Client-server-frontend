@@ -102,9 +102,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
+        navigator("/home_screen")
     }
-
-
 
 
     const stop_timer = async () => {
@@ -161,32 +160,11 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
+        navigator("/home_screen")
     }
 
 
-    const fetch_active_work_session = async ()=> {
-        let user_id = find_cookie("user_id=").split("=")[1];
 
-        try {
-            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/not_closed/${user_id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            });
-
-            const data = await response.json();
-            if (response.ok){
-                document.cookie = "session_id=" + data.workSession._id + "; path=/;";
-                document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
-            }
-            else {
-                console.log(data.error)
-            }
-        } catch (error) {
-            console.log('Error occurred:', error);
-        }
-    }
 
     useEffect(() => {
         const fetchWorkSession = async () => {
@@ -223,7 +201,29 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         fetchWorkSession();
     }, []);
 
+    const fetch_active_work_session = async ()=> {
+        let user_id = find_cookie("user_id=").split("=")[1];
 
+        try {
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/not_closed/${user_id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            const data = await response.json();
+            if (response.ok){
+                document.cookie = "session_id=" + data.workSession._id + "; path=/;";
+                document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
+            }
+            else {
+                console.log(data.error)
+            }
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
+    }
 
 
     function calculateDuration(startTime, endTime) {
