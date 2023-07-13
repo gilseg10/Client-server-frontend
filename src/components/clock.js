@@ -40,6 +40,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         return ""
     }
 
+
     function remove_cookie(cookie_header){
         var cookies = document.cookie.split(';');
 
@@ -50,6 +51,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             }
         }
     }
+
 
     const start_timer = async () => {
         set_timer_state(true);
@@ -102,8 +104,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             console.log('Error occurred:', error);
         }
     }
-
-
 
 
     const stop_timer = async () => {
@@ -186,11 +186,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     const startTimerInterval = () => {
-        const start_time = find_cookie("start_time=");
-        set_timer_state(true);
-        set_center_label("Stop");
-        set_start_time("Clock-in " + start_time.split("=")[1]);
-
         const newTimeFill = setInterval(() => {
             if ( !timer_started){
                 clearInterval(newTimeFill);
@@ -223,7 +218,15 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         try {
             await fetch_active_work_session();
             const start_time = find_cookie("start_time=");
-            if (!start_time) return;
+
+            if (!start_time){
+                console.log("auto start check failed so clock is stopped")
+                return;
+            }
+
+            set_timer_state(true);
+            set_center_label("Stop");
+            set_start_time("Clock-in " + start_time.split("=")[1]);
             startTimerInterval()
             console.log("try start on load")
         } catch (error) {
