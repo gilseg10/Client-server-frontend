@@ -23,6 +23,8 @@ function Dropdown({ options, selected, find_cookie, selection }) {
         if ( !is_active_session)
             return
 
+        console.log(!is_active_session);
+        console.log(selectedOption);
 
         try {
             const payload = {session_id: session_id, working_from: selectedOption};
