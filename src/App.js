@@ -7,7 +7,7 @@ import Reset_password from "./screens/Reset_password";
 function App() {
     return(
         // check which screen I need
-        <Router >
+        <Router>
             <Routes>
                 <Route path="/" element={<Login/>}/>
                 <Route path="/home_screen" element={<Home_screen/>}/>

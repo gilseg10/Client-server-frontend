@@ -54,6 +54,28 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     const start_timer = async () => {
+
+        const newTimeFill = setInterval(() => {
+
+            let time = new Date()
+            let hours = time.getHours()
+            let minutes = time.getMinutes()
+            let seconds = time.getSeconds()
+
+            if (hours < 10)
+                hours = "0" + hours;
+            if (minutes < 10)
+                minutes = "0" + minutes;
+            if (seconds < 10)
+                seconds = "0" + seconds;
+
+            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
+            setElapsedTime(secondsPassed)
+            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
+        }, 1000);
+        return () => clearInterval(newTimeFill);
+
+
         set_timer_state(true);
         set_center_label("Stop")
         let time = new Date()
@@ -108,6 +130,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
     const stop_timer = async () => {
         set_timer_state(false);
+
+
         let time = new Date();
         let hours = time.getHours()
         let minutes = time.getMinutes()
@@ -164,42 +188,43 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
 
-
-
     useEffect(() => {
         const fetchWorkSession = async () => {
             try {
                 await fetch_active_work_session();
-                const start_time = find_cookie("start_time=");
-                if (!start_time) return;
-                set_timer_state(true);
-                set_center_label("Stop");
-                set_start_time("Clock-in " + start_time.split("=")[1]);
-
-                const newTimeFill = setInterval(() => {
-
-                    let time = new Date()
-                    let hours = time.getHours()
-                    let minutes = time.getMinutes()
-                    let seconds = time.getSeconds()
-
-                    if (hours < 10)
-                        hours = "0" + hours;
-                    if (minutes < 10)
-                        minutes = "0" + minutes;
-                    if (seconds < 10)
-                        seconds = "0" + seconds;
-
-                    const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
-                    setElapsedTime(secondsPassed)
-                    set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
-                }, 1000);
-                return () => clearInterval(newTimeFill);
             } catch (error) {
                 // Handle the error
             }
         };
+
         fetchWorkSession();
+
+        const start_time = find_cookie("start_time=");
+        if (!start_time)
+            return;
+        set_timer_state(true);
+        set_center_label("Stop");
+        set_start_time("Clock-in " + start_time.split("=")[1]);
+
+        const newTimeFill = setInterval(() => {
+
+            let time = new Date()
+            let hours = time.getHours()
+            let minutes = time.getMinutes()
+            let seconds = time.getSeconds()
+
+            if (hours < 10)
+                hours = "0" + hours;
+            if (minutes < 10)
+                minutes = "0" + minutes;
+            if (seconds < 10)
+                seconds = "0" + seconds;
+
+            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
+            setElapsedTime(secondsPassed)
+            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
+        }, 1000);
+        return () => clearInterval(newTimeFill);
     }, []);
 
     const fetch_active_work_session = async ()=> {
