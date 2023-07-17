@@ -26,6 +26,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
     const [email_error, setEmail_error] = useState('');
 
 
+    const [procedure_error, set_procedure_error] = useState('');
 
 
 
@@ -69,9 +70,8 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 document.cookie = "user_name=" + data.username + "; path=/;";
                 navigator("/home_screen")
             }
-            else {
-                console.log(data.error)
-            }
+            else
+                set_procedure_error(data.error)
 
         }catch (error) {
             console.log('Error occurred:', error);
@@ -138,14 +138,13 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 body: JSON.stringify(payload),
             });
 
-
-            if (response.ok){
-                // open the login tab in the end
+            const data = response.json()
+            if (response.ok)
+                // open the login tab
                 handleSectionClick('section1')
-            }
-            else {
-                console.log("fuck...")
-            }
+            else
+                set_procedure_error(data.error)
+
         } catch (error) {
             console.log('Error occurred:', error);
         }
@@ -218,6 +217,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                             <a>Password</a>
                             <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                             <button onClick={log_in}>Login</button>
+                            <p>{procedure_error}</p>
                             {/*<div id="buttons">*/}
                             {/*    <div className="sign_with" id="google_login"/>*/}
                             {/*    <div className="sign_with" id="apple_login"/>*/}
@@ -243,6 +243,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                         <a>E-mail</a>
                         <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>
+                        <p>{procedure_error}</p>
                     </>
                 )}
             </div>
