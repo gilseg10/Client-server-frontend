@@ -175,8 +175,10 @@ const Login_box = () => {
             });
             if (response.ok) {
                 setEmail_sent("true")
-                handleSectionClick('section1')
+                setError_sending("")
+                // handleSectionClick('section1')
             } else {
+                setEmail_sent("")
                 setError_sending("This email does not exist")
             }
         } catch (error) {
@@ -234,11 +236,12 @@ const Login_box = () => {
             const data = await response.json();
             if (response.status === 201){
                 console.log(data);
-                // navigator("/")
+                navigator("/")
             }
             else{
                 set_new_password_message(data.error)
             }
+
         }catch (error) {
             console.log('Error occurred:', error);
         }
@@ -316,8 +319,6 @@ const Login_box = () => {
                         <button onClick={() => handle_forgot_click()}>Reset my password</button>
                         <br/>
                         <br/>
-                        <br/>
-                        <br/>
                         {error_sending && (
                             <div>
                                 <p id="error">{error_sending}</p>
@@ -336,7 +337,6 @@ const Login_box = () => {
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
-
                         )}
                     </>
                 )}
