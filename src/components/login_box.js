@@ -257,7 +257,6 @@ const Login_box = () => {
     }, []);
 
 
-
     return (
         <div className="main_box" id="login_main">
             <div
@@ -289,7 +288,6 @@ const Login_box = () => {
                 className={`section ${isSectionActive('section2') ? 'active' : ''}`}
                 onClick={() => handleSectionClick('section2')}
             >
-
                 <p>sign-up</p>
                 {isSectionActive('section2') && (
                     <>
@@ -340,7 +338,7 @@ const Login_box = () => {
                                 <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                                 <br/>
                                 <a>Reset token</a>
-                                <TextBox type="text" placeholder="Confirm your new password" onChange={handle_token_field_change} />
+                                <TextBox type="text" placeholder="Paste your reset Token" onChange={handle_token_field_change} />
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
