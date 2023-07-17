@@ -42,6 +42,9 @@ function InputField({errorMessage, setErrorMessage, validate, type, onChange, pl
                 regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
                 return regex.test(value) ? '' : 'Invalid Email address format';
 
+            case 'text':
+                return '';
+
 
             // check for a valid phone number without characters and of length 10
             // removed, but left for possible future addition.
