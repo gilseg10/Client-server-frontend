@@ -6,35 +6,34 @@ import TextBox from "../components/textBox";
 
 function Reset_homescreen(){
 
-    const [password, set_password] = useState('');
-    const [password_confirm, set_password_confirm] = useState('');
-    const [message, set_message] = useState('');
+    const [new_password, set_new_password] = useState('');
+    const [new_password_confirm, set_new_password_confirm] = useState('');
+    const [new_password_message, set_new_password_message] = useState('');
 
 
-    const [password_error, setPassword_error] = useState('');
+    const [new_password_errror, setNew_password_errror] = useState('');
 
     function handle_password_change(value) {
-        set_password(value)
-        set_message("")
+        set_new_password(value)
+        set_new_password_message("")
     }
     function handle_password_confirm_change(value) {
-        set_password_confirm(value)
-        set_message("")
+        set_new_password_confirm(value)
+        set_new_password_message("")
     }
-
 
 
     const reset_password = async () => {
-        if (password === "" || password_confirm === "")
-            return set_message("passwords cannot be empty")
-        if (password_error)
+        if (new_password === "" || new_password_confirm === "")
+            return set_new_password_message("passwords cannot be empty")
+        if (new_password_errror)
             return
 
         const currentUrl = "http://localhost:4000/api/user/reset_password/8b4afc40db08a6928c48ce8b7337fbcc36ab29c11aeb5dfa008ef7aa68e0af2d";
         const token = currentUrl.split("/reset_password/")[1];
         console.log(token);
         try {
-            const payload = {password: password};
+            const payload = {password: new_password};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/user/reset_password/${token}`, {
                 method: 'PATCH',
                 headers: {
@@ -48,7 +47,7 @@ function Reset_homescreen(){
                 navigator("/")
             }
             else{
-                set_message(data.error)
+                set_new_password_message(data.error)
             }
         }catch (error) {
             console.log('Error occurred:', error);
@@ -65,12 +64,12 @@ function Reset_homescreen(){
                 <div className="main_box" id="home_main_box">
                     <h2>Password reset</h2>
                     <a>password</a>
-                    <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={password_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                    <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                     <br/>
                     <a>Confirm password</a>
-                    <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={password} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                    <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                     <br/>
-                    {message && <p id="message">{message}</p>}
+                    {new_password_message && <p id="message">{new_password_message}</p>}
                     <button onClick={reset_password}>change password</button>
                 </div>
             </div>
