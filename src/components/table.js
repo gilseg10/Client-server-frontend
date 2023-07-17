@@ -15,8 +15,8 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
 
     const days_in_month = new Date(current_year, current_month, 0).getDate();
 
-    const year = current_date.getFullYear()
-    const month = current_date.getMonth()
+    const year = current_date.getFullYear();
+    // const month = current_date.getMonth() + 1;
 
 
     const worksessions_by_day = {};
@@ -95,7 +95,7 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
                     <table id="table">
                         <tbody>
                         {Array.from({ length: days_in_month}, (_, index) => index + 1).map(day => {
-                            const formattedDate = `${day.toString().padStart(2, '0')}.${month}.${year}`;
+                            const formattedDate = `${day.toString().padStart(2, '0')}.${current_month}.${year}`;
                             return (
                                 <tr key={day}>
                                     <td className="date">{formattedDate}</td>
