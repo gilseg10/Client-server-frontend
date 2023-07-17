@@ -225,8 +225,9 @@ const Login_box = () => {
         if (new_password_errror)
             return
 
-
+        console.log("token:");
         console.log(token);
+
         try {
             const payload = {password: new_password};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/user/reset_password/${token}`, {
