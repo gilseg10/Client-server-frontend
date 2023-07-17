@@ -205,6 +205,7 @@ const Login_box = () => {
     const [new_password_confirm, set_new_password_confirm] = useState('');
     const [new_password_message, set_new_password_message] = useState('');
     const [new_password_errror, setNew_password_errror] = useState('');
+    const [token, set_token] = useState('');
 
     function handle_password_change(value) {
         set_new_password(value)
@@ -214,6 +215,9 @@ const Login_box = () => {
         set_new_password_confirm(value)
         set_new_password_message("")
     }
+    function handle_token_field_change(value) {
+        set_token(value)
+    }
 
     const reset_password = async () => {
         if (new_password === "" || new_password_confirm === "")
@@ -221,8 +225,7 @@ const Login_box = () => {
         if (new_password_errror)
             return
 
-        const currentUrl = "http://localhost:4000/api/user/reset_password/8b4afc40db08a6928c48ce8b7337fbcc36ab29c11aeb5dfa008ef7aa68e0af2d";
-        const token = currentUrl.split("/reset_password/")[1];
+
         console.log(token);
         try {
             const payload = {password: new_password};
@@ -323,7 +326,6 @@ const Login_box = () => {
                                 <br/>
                             </div>
                         )}
-
                         {error_sending && (
                             <div>
                                 <p id="error">{error_sending}</p>
@@ -331,13 +333,14 @@ const Login_box = () => {
                         )}
                         {email_sent && (
                             <div>
-                                <p id="good">A recovery e-mail was sent to your email</p>
-                                <br/>
+                                <p id="good">A recovery token was sent to your email</p>
                                 <a>New password</a>
                                 <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                                 <br/>
                                 <a>Confirm new password</a>
                                 <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
+                                <a>Reset token</a>
+                                <TextBox type="text" placeholder="Confirm your new password" onChange={handle_token_field_change} />
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
