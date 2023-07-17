@@ -147,7 +147,6 @@ const Login_box = () => {
                 set_signup_error(data.error)
                 console.log(data.error)
             }
-
         } catch (error) {
             console.log('Error occurred:', error);
         }
@@ -235,7 +234,7 @@ const Login_box = () => {
             const data = await response.json();
             if (response.status === 201){
                 console.log(data);
-                navigator("/")
+                // navigator("/")
             }
             else{
                 set_new_password_message(data.error)
@@ -326,8 +325,7 @@ const Login_box = () => {
                         )}
                         {email_sent && (
                             <div>
-                                <p id="good">A recovery e-mail</p>
-                                <p id="good">with a reset token was sent</p>
+                                <p id="good">A recovery e-mail was sent to your email</p>
                                 <br/>
                                 <a>New password</a>
                                 <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
