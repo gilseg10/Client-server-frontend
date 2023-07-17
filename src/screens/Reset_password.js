@@ -24,8 +24,6 @@ function Reset_homescreen(){
 
 
 
-
-
     const reset_password = async () => {
         if (password === "" || password_confirm === "")
             return set_message("passwords cannot be empty")
@@ -49,11 +47,8 @@ function Reset_homescreen(){
                 console.log(data);
                 navigator("/")
             }
-            else if (response.status === 400){
+            else{
                 set_message(data.error)
-            }
-            else {
-                console.log('Authentication failed');
             }
         }catch (error) {
             console.log('Error occurred:', error);
