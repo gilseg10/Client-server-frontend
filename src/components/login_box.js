@@ -26,7 +26,8 @@ const Login_box = () => {
     const [email_error, setEmail_error] = useState('');
 
 
-    const [procedure_error, set_procedure_error] = useState('');
+    const [auth_error, set_auth_error] = useState('');
+    const [signup_error, set_signup_error] = useState('');
 
 
 
@@ -71,7 +72,7 @@ const Login_box = () => {
                 navigator("/home_screen")
             }
             else{
-                set_procedure_error(data.error)
+                set_auth_error(data.error)
                 console.log(data.error)
             }
 
@@ -138,7 +139,7 @@ const Login_box = () => {
                 // open the login tab
                 handleSectionClick('section1')
             else{
-                set_procedure_error(data.error)
+                set_signup_error(data.error)
                 console.log(data.error)
             }
 
@@ -168,12 +169,11 @@ const Login_box = () => {
                 },
                 body: JSON.stringify(payload),
             });
-            const data = response.json()
             if (response.ok) {
                 setEmail_sent("true")
                 handleSectionClick('section1')
             } else {
-                setError_sending(data.error)
+                setError_sending("This email does not exist")
             }
         } catch (error) {
             setError_sending("Recovery Email failed, try again later")
@@ -214,7 +214,10 @@ const Login_box = () => {
                             <a>Password</a>
                             <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                             <button onClick={log_in}>Login</button>
-                            <p>{procedure_error}</p>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p id="error">{auth_error}</p>
                             {/*<div id="buttons">*/}
                             {/*    <div className="sign_with" id="google_login"/>*/}
                             {/*    <div className="sign_with" id="apple_login"/>*/}
@@ -240,7 +243,10 @@ const Login_box = () => {
                         <a>E-mail</a>
                         <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>
-                        <p>{procedure_error}</p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p id="error">{signup_error}</p>
                     </>
                 )}
             </div>
@@ -261,7 +267,7 @@ const Login_box = () => {
                         <br/>
                         {error_sending && (
                             <div>
-                                <p>{error_sending}</p>
+                                <p id="error">{error_sending}</p>
                             </div>
                         )}
                         {email_sent && (
