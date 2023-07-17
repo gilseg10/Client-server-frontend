@@ -52,9 +52,9 @@ function InputField({errorMessage, setErrorMessage, validate, type, onChange, pl
                 regex = /^[0-9]{10}$/;
                 regex2 = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).+$/;
                 if (regex.test(value))
-                    return 'Phone number Must be 10 digits'
+                    return 'Phone number Must be 10 digits';
                 if (! regex2.test(value))
-                    return 'No letters or symbols allowed'
+                    return 'No letters or symbols allowed';
                 break;
             default:
                 return '';

@@ -205,6 +205,8 @@ const Login_box = () => {
     const [new_password_confirm, set_new_password_confirm] = useState('');
     const [new_password_message, set_new_password_message] = useState('');
     const [new_password_errror, setNew_password_errror] = useState('');
+    const [token_error, settoken_error] = useState('');
+
     const [token, set_token] = useState('');
 
     function handle_password_change(value) {
@@ -339,7 +341,7 @@ const Login_box = () => {
                                 <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                                 <br/>
                                 <a>Reset token</a>
-                                <TextBox type="text" placeholder="Paste your reset Token" onChange={handle_token_field_change} />
+                                <TextBox type="text" placeholder="Paste your reset Token" onChange={handle_token_field_change} errorMessage={token_error} setErrorMessage={settoken_error}/>
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
