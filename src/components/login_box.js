@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../styles/Login_screen_style.css';
 import {useNavigate} from 'react-router-dom';
 import TextBox from "./textBox";
 
-const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) => {
+const Login_box = () => {
     const [activeSection, setActiveSection] = useState('section1');
     const navigator = useNavigate ();
 
@@ -70,20 +70,15 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
                 document.cookie = "user_name=" + data.username + "; path=/;";
                 navigator("/home_screen")
             }
-            else
+            else{
                 set_procedure_error(data.error)
+                console.log(data.error)
+            }
 
         }catch (error) {
             console.log('Error occurred:', error);
         }
     };
-
-
-    function sleep(ms) {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-
-
 
 
     const [username_sign_up, setUsername_sign_up] = useState('');
@@ -107,7 +102,7 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
         setEmail_forgot(value)
     }
 
-    function handle_sign_up_click(value) {
+    function handle_sign_up_click() {
         sign_up()
     }
 
@@ -142,8 +137,10 @@ const Login_box = ({onSwitchScreen, forgot_modal_show, set_forgot_modal_show}) =
             if (response.ok)
                 // open the login tab
                 handleSectionClick('section1')
-            else
+            else{
                 set_procedure_error(data.error)
+                console.log(data.error)
+            }
 
         } catch (error) {
             console.log('Error occurred:', error);
