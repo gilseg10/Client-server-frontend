@@ -333,12 +333,12 @@ const Login_box = () => {
                         )}
                         {email_sent && (
                             <div>
-                                <p id="good">A recovery token was sent to your email</p>
+                                <p id="good">A recovery token was sent by email</p>
                                 <a>New password</a>
                                 <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
-                                <br/>
                                 <a>Confirm new password</a>
                                 <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
+                                <br/>
                                 <a>Reset token</a>
                                 <TextBox type="text" placeholder="Confirm your new password" onChange={handle_token_field_change} />
                                 {new_password_message && <p id="message">{new_password_message}</p>}
