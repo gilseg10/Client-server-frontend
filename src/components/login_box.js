@@ -176,7 +176,6 @@ const Login_box = () => {
             if (response.ok) {
                 setEmail_sent("true")
                 setError_sending("")
-                // handleSectionClick('section1')
             } else {
                 setEmail_sent("")
                 setError_sending("This email does not exist")
@@ -242,7 +241,9 @@ const Login_box = () => {
             const data = await response.json();
             if (response.status === 201){
                 console.log(data);
-                navigator("/")
+                setEmail_sent("")
+                setError_sending("")
+                handleSectionClick('section1')
             }
             else{
                 set_new_password_message(data.error)
