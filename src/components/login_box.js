@@ -314,11 +314,16 @@ const Login_box = () => {
                 <p>forgot password</p>
                 {isSectionActive('section3') && (
                     <>
-                        <a>E-mail</a>
-                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_forgot_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
-                        <button onClick={() => handle_forgot_click()}>Reset my password</button>
-                        <br/>
-                        <br/>
+                        { !email_sent && (
+                            <div>
+                                <a>E-mail</a>
+                                <TextBox type="email" placeholder="E-mail" onChange={handle_email_forgot_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
+                                <button onClick={() => handle_forgot_click()}>Reset my password</button>
+                                <br/>
+                                <br/>
+                            </div>
+                        )}
+
                         {error_sending && (
                             <div>
                                 <p id="error">{error_sending}</p>
@@ -333,7 +338,6 @@ const Login_box = () => {
                                 <br/>
                                 <a>Confirm new password</a>
                                 <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
-                                <br/>
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
