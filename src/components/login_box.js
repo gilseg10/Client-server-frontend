@@ -9,6 +9,8 @@ const Login_box = () => {
 
     // this handles the click on a section and prevents closing all tabs leaving one open constantly
     const handleSectionClick = (section) => {
+        set_auth_error("")
+        setPassword_error("")
         if (activeSection === section)
             return;
         setActiveSection(section);
@@ -53,6 +55,9 @@ const Login_box = () => {
         console.log("log-in")
         console.log("username: " + username_login)
         console.log("password: " + password_login)
+
+        if ( !password_login)
+            set_auth_error("password cannot be empty")
         try {
             const payload = {password: password_login, email: username_login};
             const response = await fetch('https://solid-clock-api.onrender.com/api/user/login', {
@@ -272,8 +277,8 @@ const Login_box = () => {
                         )}
                         {email_sent && (
                             <div>
-                                <p>A password recovery e-mail</p>
-                                <p>was sent to the provided address.</p>
+                                <p id="good">A recovery e-mail</p>
+                                <p id="good">with a reset token was sent</p>
                             </div>
                         )}
                     </>
