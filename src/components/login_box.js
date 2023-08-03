@@ -187,7 +187,7 @@ const Login_box = () => {
 
     const already_signed_in_this_session = () => {
         var cookies = document.cookie.split(';');
-
+        navigator("/home_screen") // <--- remove this!!!
         // TODO: maybe add iterator loop if we will have time
         for (var i = 0; i < cookies.length; i++) {
             if (cookies[i].trim().startsWith("user_id="))

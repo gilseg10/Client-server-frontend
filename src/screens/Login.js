@@ -10,7 +10,6 @@ function Login(){
                 welcome to Solid-clock
             </h1>
             <Login_box/>
-
         </div>
     );
 }
