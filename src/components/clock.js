@@ -41,16 +41,9 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         }
     }
 
-    const timer_toggle = () => {
-        if (timer_started){ // TODO: add a popup with "are you sure" to stop the user from spamming the circle and trashing the database.
-            stop_timer();
-            return
-        }
-        start_timer();
-    }
-
-
     const timerID = useRef();
+
+
 
     const start_timer = async => {
         set_timer_state(true);
@@ -77,8 +70,15 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
     // use this to start timer from button
     function handle_click_start_timer(){
-        upload_new_time();
-        start_timer();
+        const timer_toggle = () => {
+            if (timer_started){
+                stop_timer();
+                return
+            }
+            start_timer();
+            upload_new_time();
+            start_timer();
+        }
     }
 
     const upload_new_time = async () => {
@@ -128,7 +128,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         }
     }
 
-    const stop_timer = async ()=> {
+    const stop_timer = async ()=> { // TODO: add a popup with "are you sure" to stop the user from spamming the circle and trashing the database.
         clearInterval(timerID.current);
         timerID.current = 0;
             set_timer_state(false);
@@ -341,7 +341,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 height="300">
 
                 <circle
-                    onClick={timer_toggle}
+                    onClick={handle_click_start_timer}
                     className="svg_circle"
                     stroke="white"
                     strokeWidth="5"
