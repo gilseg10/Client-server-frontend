@@ -70,15 +70,13 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
     // use this to start timer from button
     function handle_click_start_timer(){
-        const timer_toggle = () => {
-            if (timer_started){
-                stop_timer();
-                return
-            }
-            start_timer();
-            upload_new_time();
-            start_timer();
+        if (timer_started){
+            stop_timer();
+            return
         }
+        start_timer();
+        upload_new_time();
+        start_timer();
     }
 
     const upload_new_time = async () => {
