@@ -62,10 +62,10 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 seconds = "0" + seconds;
 
 
-            let start_time = find_cookie("start_time=");
-
-            if( !start_time)
+            if( !find_cookie("start_time="))
                 upload_new_time();
+
+            console.log(find_cookie("start_time="))
 
             const secondsPassed = calculateSecondsPassed(find_cookie("start_time=").split("=")[1], hours + ":" + minutes + ":" + seconds);
             setElapsedTime(secondsPassed);
@@ -134,112 +134,56 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     const stop_timer = async ()=> { // TODO: add a popup with "are you sure" to stop the user from spamming the circle and trashing the database.
         clearInterval(timerID.current);
         timerID.current = 0;
-            set_timer_state(false);
-            let time = new Date();
-            let hours = time.getHours()
-            let minutes = time.getMinutes()
-            let seconds = time.getSeconds()
-            let year = time.getFullYear()
-            let month    = time.getMonth() + 1
-            let day = time.getDate()
+        set_timer_state(false);
+        let time = new Date();
+        let hours = time.getHours()
+        let minutes = time.getMinutes()
+        let seconds = time.getSeconds()
+        let year = time.getFullYear()
+        let month    = time.getMonth() + 1
+        let day = time.getDate()
 
-            if (hours < 10)
-                hours = "0" + hours;
-            if (minutes < 10)
-                minutes = "0" + minutes;
-            if (seconds < 10)
-                seconds = "0" + seconds;
-            if (month < 10)
-                month = "0" + month
-            if (day < 10)
-                day = "0" + day
-            set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
-            set_center_label("Start")
+        if (hours < 10)
+            hours = "0" + hours;
+        if (minutes < 10)
+            minutes = "0" + minutes;
+        if (seconds < 10)
+            seconds = "0" + seconds;
+        if (month < 10)
+            month = "0" + month
+        if (day < 10)
+            day = "0" + day
+        set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
+        set_center_label("Start");
 
-            clearInterval(timeFill);
-            set_time_fill(null);
-            set_circle_offset(0);
-            setElapsedTime(0);
+        set_time_fill(null);
+        set_circle_offset(0);
+        setElapsedTime(0);
 
-            let user_id = find_cookie("user_id=").split("=")[1];
-            let session_id = find_cookie("session_id=").split("=")[1];
-            let clock_out = hours + ":" + minutes + ":" + seconds;
-            let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
-            remove_cookie("start_time=");
-            try {
-                const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
-                const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload),
-                });
+        let user_id = find_cookie("user_id=").split("=")[1];
+        let session_id = find_cookie("session_id=").split("=")[1];
+        let clock_out = hours + ":" + minutes + ":" + seconds;
+        let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
+        remove_cookie("start_time=");
+        try {
+            const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
+            const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+            });
 
-                const data = await response.json();
-                if (response.ok)
-                    console.log(data)
-                else
-                    console.log(data.error)
-            } catch (error) {
-                console.log('Error occurred:', error);
-            }
+            const data = await response.json();
+            if (response.ok)
+                console.log(data)
+            else
+                console.log(data.error)
+        } catch (error) {
+            console.log('Error occurred:', error);
+        }
     }
-
-    // const stop_timer = async () => {
-    //     set_timer_state(false);
-    //     let time = new Date();
-    //     let hours = time.getHours()
-    //     let minutes = time.getMinutes()
-    //     let seconds = time.getSeconds()
-    //     let year = time.getFullYear()
-    //     let month    = time.getMonth() + 1
-    //     let day = time.getDate()
-    //
-    //     if (hours < 10)
-    //         hours = "0" + hours;
-    //     if (minutes < 10)
-    //         minutes = "0" + minutes;
-    //     if (seconds < 10)
-    //         seconds = "0" + seconds;
-    //     if (month < 10)
-    //         month = "0" + month
-    //     if (day < 10)
-    //         day = "0" + day
-    //     set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
-    //     set_center_label("Start")
-    //
-    //     clearInterval(timeFill);
-    //     set_time_fill(null);
-    //     set_circle_offset(0);
-    //     setElapsedTime(0);
-    //
-    //     let user_id = find_cookie("user_id=").split("=")[1];
-    //     let session_id = find_cookie("session_id=").split("=")[1];
-    //     let clock_out = hours + ":" + minutes + ":" + seconds;
-    //     let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
-    //     remove_cookie("start_time=");
-    //     try {
-    //         const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
-    //         const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
-    //             method: 'PATCH',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(payload),
-    //         });
-    //
-    //         const data = await response.json();
-    //         if (response.ok)
-    //             console.log(data)
-    //         else
-    //             console.log(data.error)
-    //     } catch (error) {
-    //         console.log('Error occurred:', error);
-    //     }
-    //     window.location.reload();
-    // }
-
 
 
     useEffect(() => {
@@ -277,6 +221,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             });
 
             const data = await response.json();
+            console.log(data.error)
             if (response.ok){
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
@@ -288,7 +233,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             console.log('Error occurred:', error);
         }
     }
-
 
     function calculateDuration(startTime, endTime) {
         // Split the time strings into hours, minutes, and seconds
@@ -316,6 +260,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     function calculateSecondsPassed(startTime, endTime) {
+
+        console.log(startTime, endTime);
         // Convert time stamps to seconds
         const startSeconds = convertToSeconds(startTime);
         const endSeconds = convertToSeconds(endTime);
@@ -382,3 +328,61 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 }
 
 export default Clock;
+
+
+
+
+
+// const stop_timer = async () => {
+//     set_timer_state(false);
+//     let time = new Date();
+//     let hours = time.getHours()
+//     let minutes = time.getMinutes()
+//     let seconds = time.getSeconds()
+//     let year = time.getFullYear()
+//     let month    = time.getMonth() + 1
+//     let day = time.getDate()
+//
+//     if (hours < 10)
+//         hours = "0" + hours;
+//     if (minutes < 10)
+//         minutes = "0" + minutes;
+//     if (seconds < 10)
+//         seconds = "0" + seconds;
+//     if (month < 10)
+//         month = "0" + month
+//     if (day < 10)
+//         day = "0" + day
+//     set_end_time("Clock-out " + hours + ":" + minutes + ":" + seconds);
+//     set_center_label("Start")
+//
+//     clearInterval(timeFill);
+//     set_time_fill(null);
+//     set_circle_offset(0);
+//     setElapsedTime(0);
+//
+//     let user_id = find_cookie("user_id=").split("=")[1];
+//     let session_id = find_cookie("session_id=").split("=")[1];
+//     let clock_out = hours + ":" + minutes + ":" + seconds;
+//     let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
+//     remove_cookie("start_time=");
+//     try {
+//         const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
+//         const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(payload),
+//         });
+//
+//         const data = await response.json();
+//         if (response.ok)
+//             console.log(data)
+//         else
+//             console.log(data.error)
+//     } catch (error) {
+//         console.log('Error occurred:', error);
+//     }
+//     window.location.reload();
+// }
