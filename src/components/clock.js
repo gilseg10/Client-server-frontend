@@ -61,10 +61,16 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             if (seconds < 10)
                 seconds = "0" + seconds;
 
-            const secondsPassed = calculateSecondsPassed(start_time.split("=")[1], hours + ":" + minutes + ":" + seconds)
-            setElapsedTime(secondsPassed)
-            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference)
-        }, 1000)
+
+            let start_time = find_cookie("start_time=");
+
+            if( !start_time)
+                upload_new_time();
+
+            const secondsPassed = calculateSecondsPassed(find_cookie("start_time=").split("=")[1], hours + ":" + minutes + ":" + seconds);
+            setElapsedTime(secondsPassed);
+            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference);
+        }, 1000);
 
     }
 
@@ -75,7 +81,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             return
         }
         start_timer();
-        upload_new_time();
         start_timer();
     }
 
