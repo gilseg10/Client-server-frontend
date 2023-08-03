@@ -44,36 +44,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     const timerID = useRef();
 
 
-
-    const start_timer = async => {
-        set_timer_state(true);
-        set_center_label("Stop")
-        timerID.current = setInterval(() => {
-            let time = new Date()
-            let hours = time.getHours()
-            let minutes = time.getMinutes()
-            let seconds = time.getSeconds()
-
-            if (hours < 10)
-                hours = "0" + hours;
-            if (minutes < 10)
-                minutes = "0" + minutes;
-            if (seconds < 10)
-                seconds = "0" + seconds;
-
-
-            if( !find_cookie("start_time="))
-                upload_new_time();
-
-            console.log(find_cookie("start_time="))
-
-            const secondsPassed = calculateSecondsPassed(find_cookie("start_time=").split("=")[1], hours + ":" + minutes + ":" + seconds);
-            setElapsedTime(secondsPassed);
-            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference);
-        }, 1000);
-
-    }
-
     // use this to start timer from button
     function handle_click_start_timer(){
         if (timer_started){
@@ -129,6 +99,35 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         } catch (error) {
             console.log('Error occurred:', error);
         }
+    }
+
+    const start_timer = async => {
+        set_timer_state(true);
+        set_center_label("Stop")
+        timerID.current = setInterval(() => {
+            let time = new Date()
+            let hours = time.getHours()
+            let minutes = time.getMinutes()
+            let seconds = time.getSeconds()
+
+            if (hours < 10)
+                hours = "0" + hours;
+            if (minutes < 10)
+                minutes = "0" + minutes;
+            if (seconds < 10)
+                seconds = "0" + seconds;
+
+
+            if( !find_cookie("start_time="))
+                upload_new_time();
+
+            console.log(find_cookie("start_time="))
+
+            const secondsPassed = calculateSecondsPassed(find_cookie("start_time=").split("=")[1], hours + ":" + minutes + ":" + seconds);
+            setElapsedTime(secondsPassed);
+            set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference);
+        }, 1000);
+
     }
 
     const stop_timer = async ()=> { // TODO: add a popup with "are you sure" to stop the user from spamming the circle and trashing the database.
