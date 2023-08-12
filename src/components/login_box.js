@@ -250,6 +250,20 @@ const Login_box = () => {
     };
 
 
+    const handle_enter_pressed = (e) => {
+        if (e.keyCode === 13) {
+            if (activeSection === 'section1') {
+                log_in();
+            } else if (activeSection === 'section2') {
+                handle_sign_up_click();
+            } else if (activeSection === 'section3' && email_sent) {
+                reset_password();
+            }
+        }
+    };
+
+
+
     useEffect(() => {
         if (already_signed_in_this_session())
             navigator("/home_screen")
@@ -266,10 +280,10 @@ const Login_box = () => {
                     {isSectionActive('section1') && (
                         <>
                             <a>E-mail</a>
-                            <TextBox type="email" placeholder="E-mail" onChange={handle_username_login_change}  errorMessage={username_error} setErrorMessage={setUsername_error}/>
+                            <TextBox type="email" placeholder="E-mail" onChange={handle_username_login_change}  onKeyUp={handle_enter_pressed} errorMessage={username_error} setErrorMessage={setUsername_error}/>
 
                             <a>Password</a>
-                            <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                            <TextBox type="password_login" placeholder="Password" onChange={handle_password_login_change} onKeyUp={handle_enter_pressed} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                             <button onClick={log_in}>Login</button>
                             <br/>
                             <br/>
@@ -291,13 +305,13 @@ const Login_box = () => {
                 {isSectionActive('section2') && (
                     <>
                         <a>Your name</a>
-                        <TextBox type="username" placeholder="What is your name?" onChange={handle_username_sign_up_Change} errorMessage={username_error} setErrorMessage={setUsername_error}/>
+                        <TextBox type="username" placeholder="What is your name?" onChange={handle_username_sign_up_Change} onKeyUp={handle_enter_pressed} errorMessage={username_error} setErrorMessage={setUsername_error}/>
                         <a>Password</a>
-                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_Change} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>Confirm password</a>
-                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_confirm_Change} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_confirm_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>E-mail</a>
-                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
+                        <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} onKeyUp={handle_enter_pressed} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>
                         <br/>
                         <br/>
@@ -317,7 +331,7 @@ const Login_box = () => {
                         { !email_sent && (
                             <div>
                                 <a>E-mail</a>
-                                <TextBox type="email" placeholder="E-mail" onChange={handle_email_forgot_Change} errorMessage={email_error} setErrorMessage={setEmail_error}/>
+                                <TextBox type="email" placeholder="E-mail" onChange={handle_email_forgot_Change} onKeyUp={handle_enter_pressed} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                                 <button onClick={() => handle_forgot_click()}>Reset my password</button>
                                 <br/>
                                 <br/>
@@ -332,12 +346,12 @@ const Login_box = () => {
                             <div>
                                 <p id="good">A recovery token was sent by email</p>
                                 <a>New password</a>
-                                <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
+                                <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} onKeyUp={handle_enter_pressed} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                                 <a>Confirm new password</a>
-                                <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
+                                <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} onKeyUp={handle_enter_pressed} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
                                 <br/>
                                 <a>Reset token</a>
-                                <TextBox type="text" placeholder="Paste your reset Token" onChange={handle_token_field_change} errorMessage={token_error} setErrorMessage={settoken_error}/>
+                                <TextBox type="text" placeholder="Paste your reset Token" onChange={handle_token_field_change} onKeyUp={handle_enter_pressed} errorMessage={token_error} setErrorMessage={settoken_error}/>
                                 {new_password_message && <p id="message">{new_password_message}</p>}
                                 <button onClick={reset_password}>change password</button>
                             </div>
