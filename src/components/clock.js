@@ -120,8 +120,12 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             if (seconds < 10)
                 seconds = "0" + seconds;
 
-            if( !find_cookie("start_time="))
+            if( !find_cookie("start_time=")){
                 upload_new_time();
+                document.cookie = `start_time=${hours}:${minutes}:${seconds}; path=/`;
+            }
+
+
 
             console.log(find_cookie("start_time=").split("=")[1])
 
@@ -209,9 +213,10 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                     await fetch_active_work_session();
 
                     const start_time = find_cookie("start_time=");
-                    if (!start_time)
-                        console.error("start_time cookie not found in stop timer!");
-                    if (!start_time) return;
+                    if (!start_time){
+                        console.error("start_time cookie not found in start timer on load!");
+                        return;
+                    }
                     set_timer_state(true);
                     set_center_label("Stop");
                     set_start_time("Clock-in " + start_time.split("=")[1]);
@@ -241,6 +246,7 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             const data = await response.json();
             console.log(data.error)
             if (response.ok){
+                // TODO: add usage of: `` and ${} below
                 document.cookie = "session_id=" + data.workSession._id + "; path=/;";
                 document.cookie = "start_time=" + data.workSession.clockIn + "; path=/;";
             }
