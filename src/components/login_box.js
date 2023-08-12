@@ -52,10 +52,6 @@ const Login_box = () => {
     }
 
     const authenticate = async () => {
-        console.log("log-in")
-        console.log("username: " + username_login)
-        console.log("password: " + password_login)
-
         if ( !password_login)
             set_auth_error("password cannot be empty")
         try {

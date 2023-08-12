@@ -76,6 +76,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         set_start_time("Clock-in " + hours + ":" + minutes + ":" + seconds);
 
         let user_id = find_cookie("user_id=").split("=")[1];
+        if (!user_id)
+            console.error("user_id cookie not found in upload time!");
         try {
             const payload = {user_id: user_id, clockIn: hours + ":" + minutes + ":" + seconds, yearMonth: year + "-" + month, day: day};
             const response = await fetch('https://solid-clock-api.onrender.com/api/home_screen/', {
@@ -160,7 +162,12 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
         setElapsedTime(0);
 
         let user_id = find_cookie("user_id=").split("=")[1];
+        if (!user_id)
+            console.error("user_id cookie not found in stop timer!");
+
         let session_id = find_cookie("session_id=").split("=")[1];
+        if (!session_id)
+            console.error("session_id cookie not found in stop timer!");
         let clock_out = hours + ":" + minutes + ":" + seconds;
         let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
         remove_cookie("start_time=");
@@ -194,6 +201,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                     await fetch_active_work_session();
 
                     const start_time = find_cookie("start_time=");
+                    if (!start_time)
+                        console.error("start_time cookie not found in stop timer!");
                     if (!start_time) return;
                     set_timer_state(true);
                     set_center_label("Stop");
@@ -210,6 +219,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
 
     const fetch_active_work_session = async ()=> {
         let user_id = find_cookie("user_id=").split("=")[1];
+        if (!user_id)
+            console.error("user_id cookie not found in fetch active work sessions!");
 
         try {
             const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/not_closed/${user_id}`, {
