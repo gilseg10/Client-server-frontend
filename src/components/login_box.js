@@ -251,6 +251,7 @@ const Login_box = () => {
 
 
     const handle_enter_pressed = (e) => {
+        console.log('Key up detected:', e.keyCode);  // Log this
         if (e.keyCode === 13) {
             if (activeSection === 'section1') {
                 log_in();
@@ -261,7 +262,6 @@ const Login_box = () => {
             }
         }
     };
-
 
 
     useEffect(() => {
