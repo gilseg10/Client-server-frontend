@@ -105,6 +105,8 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     const start_timer = async => {
         set_timer_state(true);
         set_center_label("Stop")
+
+
         timerID.current = setInterval(() => {
             let time = new Date()
             let hours = time.getHours()
@@ -118,13 +120,20 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             if (seconds < 10)
                 seconds = "0" + seconds;
 
-
             if( !find_cookie("start_time="))
                 upload_new_time();
 
-            console.log(find_cookie("start_time="))
+            console.log(find_cookie("start_time=").split("=")[1])
 
-            const secondsPassed = calculateSecondsPassed(find_cookie("start_time=").split("=")[1], hours + ":" + minutes + ":" + seconds);
+
+            const startTimeCookie = find_cookie("start_time=");
+            const startTimeValue = startTimeCookie ? startTimeCookie.split("=")[1] : null;
+            if (!startTimeValue) {
+                console.error("start_time cookie value not found.");
+                return;
+            }
+            const secondsPassed = calculateSecondsPassed(startTimeValue, `${hours}:${minutes}:${seconds}`);
+
             setElapsedTime(secondsPassed);
             set_circle_offset((secondsPassed / secondsInTwelveHours) * circle_circumference);
         }, 1000);
