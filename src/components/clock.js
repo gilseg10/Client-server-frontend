@@ -121,16 +121,17 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
                 seconds = "0" + seconds;
 
             if( !find_cookie("start_time=")){
+                console.log("creating new session")
                 upload_new_time();
                 document.cookie = `start_time=${hours}:${minutes}:${seconds}; path=/`;
             }
 
-
-
-            console.log(find_cookie("start_time=").split("=")[1])
+            console.log(find_cookie("start_time=").split("=")[1]) // undefined here when no timer is active...
 
 
             const startTimeCookie = find_cookie("start_time=");
+            console.log(find_cookie("start_time="))
+
             const startTimeValue = startTimeCookie ? startTimeCookie.split("=")[1] : null;
             if (!startTimeValue) {
                 console.error("start_time cookie value not found.");
