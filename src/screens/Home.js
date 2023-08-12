@@ -349,20 +349,19 @@ function Home_screen(){
                     </div>
                 )}
 
-                {/*/!* On mobile *!/*/}
-                {/*{showTableOnMobile && (*/}
-                {/*    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} showTableOnMobile={showTableOnMobile} setShowTableOnMobile={setShowTableOnMobile} find_cookie={find_cookie} workSessions={workSessions}/>*/}
-                {/*)}*/}
+                {/* On mobile */}
+                {showTableOnMobile && (
+                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} showTableOnMobile={showTableOnMobile} setShowTableOnMobile={setShowTableOnMobile} find_cookie={find_cookie} workSessions={workSessions}/>
+                )}
 
-                {/*/!* On PC *!/*/}
-                {/*{!showTableOnMobile && (*/}
-                {/*    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} find_cookie={find_cookie} workSessions={workSessions}/>*/}
-                {/*)}*/}
+                {/* On PC */}
+                {!showTableOnMobile && (
+                    <Table tableVisible={tableVisible} setTableVisible={setTableVisible} find_cookie={find_cookie} workSessions={workSessions}/>
+                )}
             </div>
         </div>
     );
 
 }
-// TODO: add table resize on mobile!!!!!
 
 export default Home_screen;
