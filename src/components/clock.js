@@ -182,7 +182,10 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             console.error("session_id cookie not found in stop timer!");
         let clock_out = hours + ":" + minutes + ":" + seconds;
         let duration = calculateDuration(find_cookie("start_time=").split("=")[1], clock_out);
+
         remove_cookie("start_time=");
+        remove_cookie("session_id="); // experimental
+
         try {
             const payload = {user_id: user_id, clockOut: clock_out, duration: duration};
             const response = await fetch(`https://solid-clock-api.onrender.com/api/home_screen/${session_id}`, {

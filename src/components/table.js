@@ -61,7 +61,7 @@ function Table({ tableVisible, setTableVisible, showTableOnMobile, setShowTableO
         let totalSeconds = 0;
         Object.values(worksessions_by_day).forEach(shiftData => {
 
-            console.log("shift data: " + shiftData)
+            // console.log("shift data: " + shiftData)
             shiftData.forEach(session => {
                 const [hours, minutes, seconds] = session.duration.split(':');
                 totalSeconds += parseInt(hours) * 3600 + parseInt(minutes) * 60 + parseInt(seconds);
