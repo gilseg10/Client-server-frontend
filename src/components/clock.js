@@ -51,7 +51,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
             return
         }
         start_timer();
-        start_timer();
     }
 
     const upload_new_time = async () => {
@@ -270,8 +269,6 @@ function Clock({start_time, set_start_time, end_time, set_end_time, offset_from_
     }
 
     function calculateSecondsPassed(startTime, endTime) {
-
-        console.log(startTime, endTime);
         // Convert time stamps to seconds
         const startSeconds = convertToSeconds(startTime);
         const endSeconds = convertToSeconds(endTime);
