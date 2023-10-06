@@ -19,7 +19,7 @@ A React-based website designed to manage and monitor employee clock-in times, at
 
 ## Links
 
-[SolidClock Website](https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)
+[SolidClock Website](https://solid-clock.onrender.com)
 <br>
 The website might be very slow at first due to it being on a free domain, please give it time at first.
 <br>
