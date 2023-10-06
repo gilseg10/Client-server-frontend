@@ -1,25 +1,22 @@
-# Getting Started with Create React App
+# Employee Clock-In Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based website designed to manage and monitor employee clock-in times, attendance tables, and monthly reports.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Employee Clock-In**: Allows employees to easily clock in and out.
+- **Attendance Tables**: View daily attendance logs for every employee.
+- **Monthly Reports**: Generate reports for monthly attendance and clock-in metrics.
+- **User Authentication**: 
+  - **Login**: Existing users can login to access their dashboard.
+  - **Sign Up**: New users can create an account.
+  - **Forgot Password**: Functionality for users to reset their passwords if forgotten.
 
-### `npm start`
+## Contributors
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Your Name](https://github.com/audiblemaple)
+- [Gilad Segal](https://github.com/giladsegal10) (Replace `#` with Gilad's GitHub link)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Link to the website]([https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)
+The website might be ery slow at first due to it being on a free domain, please give it time at first.
