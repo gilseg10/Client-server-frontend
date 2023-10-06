@@ -34,3 +34,4 @@ Feel free to open an issue or send a pull request if you have suggestions or imp
   - Add their hourly wage (optional)
   - Add or change personal data
   - change some other preferences
+- Add functionality to edit shift times.
