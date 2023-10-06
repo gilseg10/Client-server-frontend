@@ -11,6 +11,8 @@ A React-based website designed to manage and monitor employee clock-in times, at
   - **Login**: Existing users can login to access their dashboard.
   - **Sign Up**: New users can create an account.
   - **Forgot Password**: Functionality for users to reset their passwords if forgotten.
+- **Mobile Support**: Optimized for mobile devices, ensuring a great user experience on all platforms.
+
 
 ## Contributors
 
