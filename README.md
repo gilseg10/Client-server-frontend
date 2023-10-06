@@ -5,7 +5,6 @@ A React-based website designed to manage and monitor employee clock-in times, at
 ## Features
 
 - **Employee Clock-In**: Allows employees to easily clock in and out.
-- **Visual
 - **Attendance Tables**: View daily attendance logs for every employee.
 - **Monthly Reports**: Generate reports for monthly attendance and clock-in metrics.
 - **User Authentication**: 
