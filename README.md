@@ -27,3 +27,10 @@ The website might be very slow at first due to it being on a free domain, please
 <br>
 <br>
 Feel free to open an issue or send a pull request if you have suggestions or improvements. We appreciate all the help and feedback!
+
+
+## TODO
+- Add a settings screen to alow the user to:
+  - Add their hourly wage (optional)
+  - Add or change personal data
+  - change some other preferences
