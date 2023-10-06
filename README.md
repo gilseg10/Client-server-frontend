@@ -16,11 +16,11 @@ A React-based website designed to manage and monitor employee clock-in times, at
 
 - [Lior Jigalo](https://github.com/audiblemaple)
 - [Gilad Segal](https://github.com/giladsegal10)
-<br>
 
 ## Links
 
-[SolidClock Website]([https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)<br>
+[SolidClock Website]([https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)
+<br>
 The website might be very slow at first due to it being on a free domain, please give it time at first.
 <br>
 <br>
