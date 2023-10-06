@@ -1,10 +1,11 @@
-# Employee Clock-In Website
+# SolidClock Website
 
 A React-based website designed to manage and monitor employee clock-in times, attendance tables, and monthly reports.
 
 ## Features
 
 - **Employee Clock-In**: Allows employees to easily clock in and out.
+- **Visual
 - **Attendance Tables**: View daily attendance logs for every employee.
 - **Monthly Reports**: Generate reports for monthly attendance and clock-in metrics.
 - **User Authentication**: 
@@ -14,9 +15,14 @@ A React-based website designed to manage and monitor employee clock-in times, at
 
 ## Contributors
 
-- [Your Name](https://github.com/audiblemaple)
-- [Gilad Segal](https://github.com/giladsegal10) (Replace `#` with Gilad's GitHub link)
+- [Lior Jigalo](https://github.com/audiblemaple)
+- [Gilad Segal](https://github.com/giladsegal10)
+<br>
 
+## Links
 
-[Link to the website]([https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)
-The website might be ery slow at first due to it being on a free domain, please give it time at first.
+[SolidClock Website]([https://github.com/giladsegal10](https://solid-clock.onrender.com)https://solid-clock.onrender.com)<br>
+The website might be very slow at first due to it being on a free domain, please give it time at first.
+<br>
+<br>
+Feel free to open an issue or send a pull request if you have suggestions or improvements. We appreciate all the help and feedback!
