@@ -32,7 +32,6 @@ const Login_box = () => {
     const [signup_error, set_signup_error] = useState('');
 
 
-
     const [username_login, setUsername] = useState('');
     const [password_login, setPassword] = useState('');
 
@@ -148,9 +147,6 @@ const Login_box = () => {
         }
     };
 
-
-
-
     const [email_forgot, setEmail_forgot] = useState('');
     const [email_sent, setEmail_sent] = useState('');
     const [error_sending, setError_sending] = useState('');
@@ -190,9 +186,6 @@ const Login_box = () => {
         }
         return false;
     }
-
-
-
 
 
     const [new_password, set_new_password] = useState('');
@@ -307,9 +300,9 @@ const Login_box = () => {
                         <a>Your name</a>
                         <TextBox type="username" placeholder="What is your name?" onChange={handle_username_sign_up_Change} onKeyUp={handle_enter_pressed} errorMessage={username_error} setErrorMessage={setUsername_error}/>
                         <a>Password</a>
-                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose password" onChange={handle_password_sign_up_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up_confirm} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>Confirm password</a>
-                        <TextBox type="password" placeholder="choose and password" onChange={handle_password_sign_up_confirm_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
+                        <TextBox type="password" placeholder="choose password" onChange={handle_password_sign_up_confirm_Change} onKeyUp={handle_enter_pressed} validate={password_sign_up} errorMessage={password_error} setErrorMessage={setPassword_error}/>
                         <a>E-mail</a>
                         <TextBox type="email" placeholder="E-mail" onChange={handle_email_sign_up_Change} onKeyUp={handle_enter_pressed} errorMessage={email_error} setErrorMessage={setEmail_error}/>
                         <button onClick={handle_sign_up_click}>Sign-up</button>

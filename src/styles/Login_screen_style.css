@@ -31,21 +31,10 @@
     .section:last-child {
         background-color: rgba(102, 51, 153,0.5);
     }
-    #header_login {
-        position: absolute;
-        top: 10px;
-        left: 9%;
-        justify-content: center;
-        z-index: 1;
-        font-weight: 900;
-        font-size: 22px;
-        overflow: auto;
-    }
 }
 
 .section {
     flex-grow: 1;
-    padding-top: 10px;
     font-weight: bold;
     font-size: 16px;
     width: 100%;
@@ -57,33 +46,30 @@
 
 .section.active {
     transition: height 0.5s ease-in-out;
-    height: 75%;
+    height: 76%;
     flex-grow: 1;
     cursor: auto;
 }
 
 .section:not(.active) {
     transition: height 0.5s ease-in-out;
-    height: 7%;
+    height: 6%;
+}
+
+.section p, .section a{
+    user-select: none;
+    font-weight: bold;
 }
 
 .section p {
-    user-select: none;
-    margin-top: 0;
-    padding-bottom: 5px;
     font-size: 21px;
-    font-weight: bold;
 }
 
 .section a{
-    font-weight: bold;
-    margin-left: 40px;
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin: 20px 40px 5px 30px;
     display: flex;
     justify-content: left;
 }
-
 
 .section button, .modal-content button{
     outline: none;
@@ -106,7 +92,6 @@
     scale: 1.05;
 }
 
-
 .section input ,.modal-content input{
     font-weight: bold;
     font-size: 15px;
@@ -128,7 +113,6 @@
     color: #ff3e3e;
     font-size: 14px;
 }
-
 
 #buttons{
     display: flex;
@@ -157,7 +141,6 @@
 #apple_login{
     background-image: url("../assets/apple_icon.png");
 }
-
 
 #error{
     color: red;

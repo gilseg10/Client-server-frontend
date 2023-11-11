@@ -1,35 +1,32 @@
+.main_box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+}
+
+.background{
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
 @media (min-width: 1025px) {
     .main_box {
-        width: 28%;
-        height: 80%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
+        width: 30%;
+        height: 65%;
+        margin: 50px auto;
         border-radius: 30px;
-        backdrop-filter: blur(10px);
     }
     .background{
         background-image: url("../assets/output-onlinepngtools.png");
-        /*background-image: url("http://wallpaperswide.com/download/landscape_illustration-wallpaper-3440x1440.jpg");*/
-
-        background-size: cover;
-        background-repeat: no-repeat;
         width: 100vw;
         height: 100vh;
-        overflow: hidden;
-    }
-
-    #header{
-        padding-top: 20px;
-        padding-bottom: 50px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 40px;
-        font-weight: 800;
     }
 }
 
@@ -37,33 +34,23 @@
 @media (min-width: 1px) and (max-width: 1024px){
     .main_box {
         width: 100vw;
-        height: 90vh;
-        /*height: 97.6vh;*/
-        display: flex;
+        height: 88vh;
         margin: 0 auto;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        backdrop-filter: blur(10px);
     }
-
 
     .background{
         background-image: url("../assets/mobile_background.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        overflow: auto;
+
         height: 100%;
         width: 100%;
     }
+    #header_login{
+        display: none;
+    }
 }
 
-
 #header_login, #header_home{
+    transform-origin: center;
     color: #ffadad;
     font-family: 'Raleway',sans-serif;
     text-transform: uppercase;

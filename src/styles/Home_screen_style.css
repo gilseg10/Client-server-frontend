@@ -21,7 +21,6 @@ button{
         border-radius: 20px;
     }
 
-
     #header_div, #table_div{
         background-color: rgba(141, 141, 141, 0.52);
         border-radius: 20px;
@@ -33,7 +32,6 @@ button{
 
     #table_div{
         height: 660px;
-        overflow: auto;
         margin: 0 10px 10px 10px;
         border-radius: 0 0 20px 20px;
     }
@@ -43,7 +41,6 @@ button{
     }
     .times{
         width: 75%;
-        padding: 10px;
     }
 
     th:first-child{
@@ -65,9 +62,6 @@ button{
     #settings{
         border-radius:  0 0 15px 0;
     }
-    #table_div{
-        overflow: auto;
-    }
     *::-webkit-scrollbar {
         display: none;
         -ms-overflow-style: none;
@@ -81,7 +75,6 @@ button{
     }
     .times{
         width: 55%;
-        padding: 10px;
     }
     .container{
         width: 100%;
@@ -93,24 +86,15 @@ button{
     .modal-content {
         width: 70%;
     }
-
-    #header_home {
-        position: absolute;
-        top: 40px;
-        left: 9%;
-        justify-content: center;
-        z-index: 1;
-        font-weight: 900;
-        font-size: 22px;
-        overflow: auto;
-    }
 }
 
-
-
+#table_div{
+    overflow: auto;
+}
 
 .times{
     overflow-block: visible;
+    padding: 10px;
 }
 
 .util{
@@ -167,7 +151,6 @@ button{
     background-image: url("../assets/add_comment_icon.png");
 }
 
-
 .modal {
     padding: 50px 0 0 0;
     position: fixed;
@@ -192,7 +175,6 @@ button{
     text-align: center;
     overflow-block: visible;
 }
-
 
 textarea{
     resize: none;
