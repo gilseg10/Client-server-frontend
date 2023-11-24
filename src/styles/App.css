@@ -43,7 +43,7 @@ h4{
 
     .background{
         background-image: url("../assets/mobile_background.png");
-        height: 87vh;
+        height: 100svh;
         width: 100%;
     }
     #header_login, #header_home{

@@ -34,13 +34,12 @@ function Home_screen(){
 
     const [comment, setComment] = useState("");
 
-
-    const shift = {
-        start: {start_time},
-        end: {end_time},
-        comment: {comment},
-        absence: "TODO"
-    };
+    // const shift = {
+    //     start: {start_time},
+    //     end: {end_time},
+    //     comment: {comment},
+    //     absence: "TODO"
+    // };
 
     const log_out = () => {
         var cookie = find_cookie("user_id=")
@@ -55,9 +54,8 @@ function Home_screen(){
 
         for (var i = 0; i < cookies.length; i++) {
             var cookie = cookies[i].trim();
-            if (cookie.startsWith(cookie_header)) {
+            if (cookie.startsWith(cookie_header))
                 return cookie
-            }
         }
         return ""
     }
@@ -343,7 +341,7 @@ function Home_screen(){
 
                             <div className="bottom_buttons_div_inner">
                                 <button className="bottom_buttons" id="view_table" onClick={() => setTableVisible(!tableVisible)}></button>
-                                <div>Attendance table</div>
+                                <div>Attendance</div>
                             </div>
                         </div>
                     </div>
