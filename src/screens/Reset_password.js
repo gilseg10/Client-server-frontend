@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import '../styles/App.css';
 import '../styles/reset_password.css';
 
-import TextBox from "../components/textBox";
-
 function Reset_homescreen(){
 
     const [new_password, set_new_password] = useState('');
@@ -64,13 +62,13 @@ function Reset_homescreen(){
                 <div className="main_box" id="home_main_box">
                     <h2>Password reset</h2>
                     <a>password</a>
-                    <TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
-                    <br/>
-                    <a>Confirm password</a>
-                    <TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>
-                    <br/>
-                    {new_password_message && <p id="message">{new_password_message}</p>}
-                    <button onClick={reset_password}>change password</button>
+                    {/*<TextBox type="password" placeholder="Choose your new password" onChange={handle_password_change} validate={new_password_confirm} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>*/}
+                    {/*<br/>*/}
+                    {/*<a>Confirm password</a>*/}
+                    {/*<TextBox type="password" placeholder="Confirm your new password" onChange={handle_password_confirm_change} validate={new_password} errorMessage={new_password_errror} setErrorMessage={setNew_password_errror}/>*/}
+                    {/*<br/>*/}
+                    {/*{new_password_message && <p id="message">{new_password_message}</p>}*/}
+                    {/*<button onClick={reset_password}>change password</button>*/}
                 </div>
             </div>
         </div>
