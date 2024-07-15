@@ -27,7 +27,7 @@ h4{
         border-radius: 30px;
     }
     .background{
-        background-image: url("../assets/output-onlinepngtools.png");
+        background-image: url("../assets/background.jpg");
         width: 100vw;
         height: 100vh;
     }
@@ -42,12 +42,13 @@ h4{
     }
 
     .background{
-        background-image: url("../assets/mobile_background.png");
+        background-image: url("../assets/background.jpg");
         height: 100svh;
         width: 100%;
     }
     #header_login, #header_home{
-        display: none;
+        position: absolute;
+        z-index: 999;
     }
 }
 

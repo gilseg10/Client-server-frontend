@@ -6,7 +6,7 @@ function Login(){
     return (
         <div className="background">
             <h1 id="header_login">
-                welcome to Solid-clock
+                Solid-clock
             </h1>
             <Login_box/>
         </div>
