@@ -1,3 +1,14 @@
+:root {
+    /*sections*/
+    --section1: rgba(193, 255, 203, 0.3);
+    --section2: rgba(112, 145, 119, 0.4);
+    --section3: rgba(64, 83, 67, 0.5);
+
+    /*colors*/
+    --primary: #cacaca;
+    --text-primary: rgb(0, 0, 0);
+}
+
 .main_box{
     display: flex;
     align-items: center;
@@ -54,7 +65,7 @@ h4{
 
 #header_login, #header_home{
     transform-origin: center;
-    color: #ffadad;
+    color: var(--primary);
     font-family: 'Raleway',sans-serif;
     text-transform: uppercase;
     text-align: center;
