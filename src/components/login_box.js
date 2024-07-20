@@ -20,31 +20,38 @@ const Login_box = () => {
 		return activeSection === section;
 	};
 
-	const authenticate = async (password, email) => {
+	const authenticate = async (password, email, navigate) => {
 		try {
-
-			const payload = {password: password, email: email};
-			console.log(payload);
-			const url = `${process.env.ENDPOINT}/user/login`;
+			const payload = { password, email };
+			const url = `${process.env.REACT_APP_ENDPOINT}/user/login`;
 			console.log(url);
+
 			const response = await fetch(url, {
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(payload),
 			});
-			console.log(response)
 
-			const data = await response.json();
+			console.log(response);
+
+			let data;
+			try {
+				data = await response.json();
+			} catch (jsonError) {
+				console.log('Error parsing JSON:', jsonError);
+				throw new Error('Failed to parse response');
+			}
+
 			if (response.status === 201) {
 				console.log(data); // display the response data
-				document.cookie = "user_id=" + data.user_id + "; path=/;";
-				document.cookie = "user_name=" + data.username + "; path=/;";
-				navigator("/home_screen")
-			} else
-				console.log(data.error)
-
+				document.cookie = `user_id=${data.user_id}; path=/; secure; SameSite=Strict`;
+				document.cookie = `user_name=${data.username}; path=/; secure; SameSite=Strict`;
+				navigate("/home_screen");
+			} else {
+				console.log(data.error);
+			}
 		} catch (error) {
 			console.log('Error occurred:', error);
 		}
